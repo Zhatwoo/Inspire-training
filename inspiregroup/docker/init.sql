@@ -67,12 +67,16 @@ CREATE TABLE IF NOT EXISTS events (
 -- Sample seed data
 
 INSERT INTO departments (name, slug, description, icon, color) VALUES
-('Human Resources', 'hr', 'People management and employee development', '👥', '#3b82f6'),
-('Information Technology', 'it', 'Technology infrastructure and support', '💻', '#06b6d4'),
-('Finance', 'finance', 'Financial planning and accounting', '💰', '#10b981'),
-('Operations', 'operations', 'Business operations and logistics', '⚙️', '#f59e0b'),
-('Marketing', 'marketing', 'Brand management and communications', '📢', '#ef4444'),
-('Training', 'training', 'Employee training and development programs', '📚', '#8b5cf6');
+('Customer', 'customer', 'Customer service, support, and relationship management', '🎧', '#06b6d4'),
+('Corporate', 'corporate', 'Corporate governance, strategy, stakeholder relations, and compliance', '💼', '#8b5cf6'),
+('Admin', 'admin', 'Facilities management, logistics, procurement, and office operations', '🏢', '#10b981'),
+('IT', 'it', 'Infrastructure, development, and tech support for the entire organization', '💻', '#2563eb'),
+('Solution', 'solution', 'Business solutions, consulting, and technology-driven innovation services', '💡', '#0ea5e9'),
+('Iwallet', 'iwallet', 'Digital wallet operations, payment processing, and financial product support', '👛', '#f97316'),
+('Real Estate', 'realestate', 'Property acquisition, leasing, portfolio management, and site development', '🏠', '#14b8a6'),
+('Joint Business Adventure', 'jba', 'Strategic partnerships, joint ventures, and collaborative business initiatives', '🤝', '#d946ef'),
+('Marketing', 'marketing', 'Brand management, digital marketing, campaigns, and communications', '📢', '#ef4444'),
+('Utility', 'utility', 'Building maintenance, utilities management, and general support services', '🔧', '#f59e0b');
 
 INSERT INTO apps (name, description, icon, url, category) VALUES
 ('Email', 'Corporate email system', '📧', '#', 'Communication'),
