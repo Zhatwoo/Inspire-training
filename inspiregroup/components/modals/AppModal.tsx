@@ -3,13 +3,15 @@
 import { useState } from "react";
 import type { AppModalProps } from "@/lib/types";
 import Portal from "@/components/ui/Portal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AppModal({ app, isOpen, onClose }: AppModalProps) {
   const [activeTab, setActiveTab] = useState(0);
+  const { t } = useLanguage();
 
   if (!app) return null;
 
-  const tabs = ["Overview", "Demos"];
+  const tabs = [t("appOverview"), t("appDemos")];
 
   return (
     <Portal>
@@ -79,7 +81,7 @@ export default function AppModal({ app, isOpen, onClose }: AppModalProps) {
           {activeTab === 0 && (
             <div className="animate-[fadeInUp_0.4s_ease]">
               <h4 className="font-serif text-[1.2rem] font-bold mb-5">
-                Key Features
+                {t("appKeyFeatures")}
               </h4>
               <ul className="grid grid-cols-2 gap-4 mb-9 max-md:grid-cols-1 list-none p-0">
                 {app.features.map((f) => (
@@ -102,7 +104,7 @@ export default function AppModal({ app, isOpen, onClose }: AppModalProps) {
                   color: app.modalLogoColor,
                 }}
               >
-                <i className="ph-bold ph-arrow-square-out" /> Launch{" "}
+                <i className="ph-bold ph-arrow-square-out" /> {t("appLaunch")}{" "}
                 {app.name}
               </button>
             </div>
@@ -112,7 +114,7 @@ export default function AppModal({ app, isOpen, onClose }: AppModalProps) {
           {activeTab === 1 && (
             <div className="animate-[fadeInUp_0.4s_ease]">
               <h4 className="font-serif text-[1.2rem] font-bold mb-5">
-                Demo Videos
+                {t("appDemoVideos")}
               </h4>
               {app.videos.map((vid) => (
                 <div

@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer className="bg-elevated border-t border-subtle py-20 pb-10 relative z-[1]">
       <div className="max-w-[1280px] mx-auto px-10 max-md:px-6">
@@ -15,64 +19,63 @@ export default function Footer() {
               Inspire Group
             </div>
             <p className="text-[0.95rem] text-muted leading-relaxed max-w-[320px]">
-              Building a connected, efficient, and inspiring workplace for every
-              team member.
+              {t("footerTagline")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h5 className="text-[0.8rem] font-extrabold uppercase tracking-widest mb-6 text-content">
-              Quick Links
+              {t("footerQuickLinks")}
             </h5>
             <a href="#hero" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Home
+              {t("navHome")}
             </a>
             <a href="#projects" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Ecosystem
+              {t("navEcosystem")}
             </a>
             <a href="#announcements" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              News
+              {t("navNews")}
             </a>
           </div>
 
           {/* Resources */}
           <div>
             <h5 className="text-[0.8rem] font-extrabold uppercase tracking-widest mb-6 text-content">
-              Resources
+              {t("footerResources")}
             </h5>
             <a href="#departments" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Departments
+              {t("footerDepartments")}
             </a>
             <a href="#bulletin" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Bulletin
+              {t("footerBulletin")}
             </a>
             <a href="#orgchart" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Org Chart
+              {t("footerOrgChart")}
             </a>
           </div>
 
           {/* Support */}
           <div>
             <h5 className="text-[0.8rem] font-extrabold uppercase tracking-widest mb-6 text-content">
-              Support
+              {t("footerSupport")}
             </h5>
             <a href="#" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Help Desk
+              {t("footerHelpDesk")}
             </a>
             <a href="#" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              IT Support
+              {t("footerItSupport")}
             </a>
             <a href="#" className="footer-link block text-[0.95rem] text-muted py-2 font-medium">
-              Contact
+              {t("footerContact")}
             </a>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="flex items-center justify-between pt-8 border-t border-subtle text-[0.9rem] text-muted font-medium max-md:flex-col max-md:gap-4 max-md:text-center">
-          <span>&copy; {new Date().getFullYear()} Inspire Group. All rights reserved.</span>
-          <span>Built with purpose.</span>
+          <span>&copy; {new Date().getFullYear()} Inspire Group. {t("footerRights")}</span>
+          <span>{t("footerBuilt")}</span>
         </div>
       </div>
     </footer>

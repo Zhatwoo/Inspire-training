@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSection() {
   const gridRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!gridRef.current) return;
@@ -38,22 +40,20 @@ export default function HeroSection() {
           {/* Text */}
           <div className="hero-animate">
             <h1 className="font-serif text-[clamp(3rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight mb-6">
-              Empowering the
+              {t("heroTitle1")}
               <br />
-              <span className="grad-text">future of work.</span>
+              <span className="grad-text">{t("heroTitle2")}</span>
             </h1>
 
             <p className="text-[1.15rem] text-muted leading-relaxed max-w-[500px] mb-12 font-normal max-lg:mx-auto">
-              Your central hub for everything Inspire Group. Access
-              applications, discover company news, and connect with your
-              department resources seamlessly.
+              {t("heroSubtitle")}
             </p>
 
             <a
               href="#departments"
               className="btn-brand inline-flex items-center justify-center gap-2.5 py-3.5 px-8 text-base font-semibold rounded-full bg-content text-main shadow-[var(--shadow-md)]"
             >
-              <i className="ph-bold ph-buildings" /> Explore Departments
+              <i className="ph-bold ph-buildings" /> {t("heroCta")}
             </a>
           </div>
 
@@ -68,10 +68,10 @@ export default function HeroSection() {
                       className="ph-fill ph-chart-bar"
                       style={{ color: "var(--inspire-blue)" }}
                     />
-                    System Health
+                    {t("heroSystemHealth")}
                   </span>
                   <span className="py-1.5 px-3.5 rounded-full text-[0.75rem] font-extrabold uppercase bg-[rgba(16,185,129,0.1)] text-inspire-green">
-                    Optimal
+                    {t("heroOptimal")}
                   </span>
                 </div>
                 <div className="flex items-end gap-2 h-[110px]">
@@ -93,7 +93,7 @@ export default function HeroSection() {
                       className="ph-fill ph-calendar-check"
                       style={{ color: "var(--inspire-green)" }}
                     />
-                    Network Activity
+                    {t("heroNetworkActivity")}
                   </span>
                 </div>
                 <div
@@ -118,7 +118,7 @@ export default function HeroSection() {
                   </span>
                 </div>
                 <div className="text-center font-bold text-[0.9rem] text-content">
-                  Uptime
+                  {t("heroUptime")}
                 </div>
               </div>
             </div>

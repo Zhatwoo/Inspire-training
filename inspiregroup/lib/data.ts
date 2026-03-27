@@ -173,7 +173,7 @@ export const eventData: EventData[] = [
 export const departmentData: DepartmentData[] = [
   {
     id: "customer",
-    name: "Customer Department",
+    name: "Customer Care Department",
     icon: "ph-duotone ph-headset",
     color: "#06b6d4",
     rgb: "6,182,212",
@@ -371,7 +371,7 @@ export const departmentData: DepartmentData[] = [
   },
   {
     id: "jba",
-    name: "Joint Business Adventure",
+    name: "Joint Business Venture",
     icon: "ph-duotone ph-handshake",
     color: "#d946ef",
     rgb: "217,70,239",
@@ -421,12 +421,12 @@ export const departmentData: DepartmentData[] = [
   },
   {
     id: "utility",
-    name: "Utility",
+    name: "Consultant",
     icon: "ph-duotone ph-wrench",
     color: "#f59e0b",
     rgb: "245,158,11",
-    desc: "Building maintenance, utilities management, and general support services.",
-    tags: ["Maintenance", "Utilities", "Support", "Facilities"],
+    desc: "Consulting services, strategic planning, and cross-functional advisory support.",
+    tags: ["Consulting", "Strategy", "Advisory", "Support"],
     videos: [
       { title: "Preventive Maintenance Schedule", desc: "Overview of monthly and quarterly maintenance tasks.", duration: "6:50" },
       { title: "Utilities Monitoring Guide", desc: "How to track and report electricity, water, and HVAC usage.", duration: "5:40" },
@@ -438,7 +438,7 @@ export const departmentData: DepartmentData[] = [
       { title: "Emergency Response Guide", desc: "Protocols for power outages and facility emergencies.", size: "1.0 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
     ],
     team: [
-      { name: "Edgar Ramos", role: "Utility Supervisor", initials: "ER", head: true },
+      { name: "Edgar Ramos", role: "Consulting Supervisor", initials: "ER", head: true },
       { name: "Joel Bautista", role: "Electrician", initials: "JB" },
       { name: "Rene Aguilar", role: "Plumber & HVAC Tech", initials: "RA" },
       { name: "Luz Hernandez", role: "Facilities Support", initials: "LH" },

@@ -4,9 +4,12 @@ import Link from "next/link";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { departmentData } from "@/lib/data";
 import { useFadeIn } from "@/hooks/useFadeIn";
+import { useLanguage } from "@/context/LanguageContext";
+import { departmentTranslations } from "@/lib/translations";
 
 export default function DepartmentsSection() {
   const { ref, isVisible } = useFadeIn();
+  const { t, language } = useLanguage();
 
   return (
     <section
@@ -15,10 +18,10 @@ export default function DepartmentsSection() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10">
         <SectionHeader
-          label="Browse"
+          label={t("deptLabel")}
           labelColorClass="lbl-red"
-          title="Department Resources"
-          subtitle="Explore each department's training materials, documents, team roster, and tools."
+          title={t("deptTitle")}
+          subtitle={t("deptSubtitle")}
           centered
         />
 
@@ -28,10 +31,12 @@ export default function DepartmentsSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          {departmentData.map((dept) => (
-            <Link
-              key={dept.id}
-              href={`/departments/${dept.id}`}
+          {departmentData.map((dept) => {
+            const localized = departmentTranslations[language][dept.id];
+            return (
+              <Link
+                key={dept.id}
+                href={`/departments/${dept.id}`}
               className="group rounded-2xl p-6 sm:p-8 cursor-pointer flex gap-5 sm:gap-6 items-start text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] shadow-[0_4px_16px_rgba(0,0,0,0.15)]"
               style={{ background: dept.color }}
             >
@@ -46,13 +51,13 @@ export default function DepartmentsSection() {
               {/* Content */}
               <div className="min-w-0">
                 <h3 className="font-serif text-[1.2rem] sm:text-[1.4rem] font-bold mb-1.5 text-white leading-snug">
-                  {dept.name}
+                  {localized?.name ?? dept.name}
                 </h3>
                 <p className="text-[0.88rem] sm:text-[0.95rem] leading-relaxed mb-4 text-white/80 line-clamp-2">
-                  {dept.desc}
+                  {localized?.desc ?? dept.desc}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {dept.tags.map((tag) => (
+                  {(localized?.tags ?? dept.tags).map((tag) => (
                     <span
                       key={tag}
                       className="py-1 px-3 rounded-full text-[0.72rem] sm:text-[0.75rem] font-bold text-white border border-white/30 bg-white/15"
@@ -66,7 +71,8 @@ export default function DepartmentsSection() {
               {/* Arrow */}
               <i className="ph-bold ph-arrow-right text-white/60 text-[1.2rem] shrink-0 mt-1 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
