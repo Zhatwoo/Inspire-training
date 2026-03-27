@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { DepartmentPageProps, DeptVideo } from "@/lib/types";
+import { useLanguage } from "@/context/LanguageContext";
+import { departmentTranslations } from "@/lib/translations";
 
 const LANGS = [
   { code: "EN", label: "English" },
@@ -56,6 +58,13 @@ export default function DepartmentPage({
   department: dept,
   onBack,
 }: DepartmentPageProps) {
+  const { t, language } = useLanguage();
+  const localized =
+    departmentTranslations[language as keyof typeof departmentTranslations][
+      dept.id
+    ];
+  const deptName = localized?.name ?? dept.name;
+  const deptDesc = localized?.desc ?? dept.desc;
   return (
     <div className="bg-main min-h-screen pb-24">
       {/* Hero Banner */}
@@ -72,7 +81,7 @@ export default function DepartmentPage({
             onClick={onBack}
             className="back-btn inline-flex items-center gap-2.5 text-white font-bold mb-10 bg-white/15 py-3 px-6 rounded-full backdrop-blur-[12px] border border-white/20"
           >
-            <i className="ph-bold ph-arrow-left" /> Back to Departments
+            <i className="ph-bold ph-arrow-left" /> {t("deptBack")}
           </button>
 
           <div className="flex items-center gap-6 mb-5 max-md:flex-col max-md:items-start">
@@ -80,11 +89,11 @@ export default function DepartmentPage({
               className={`${dept.icon} text-[4rem] bg-white/20 p-6 rounded-[32px] backdrop-blur-[12px] shadow-[0_10px_30px_rgba(0,0,0,0.2)] max-md:text-[3rem] max-md:p-4`}
             />
             <h1 className="font-serif text-[clamp(3rem,5vw,4.5rem)] leading-none m-0 [text-shadow:0_4px_24px_rgba(0,0,0,0.2)]">
-              {dept.name}
+              {deptName}
             </h1>
           </div>
           <p className="text-[1.25rem] opacity-90 max-w-[700px] ml-[125px] leading-relaxed max-md:ml-0 max-md:mt-6">
-            {dept.desc}
+            {deptDesc}
           </p>
         </div>
       </div>
@@ -98,7 +107,7 @@ export default function DepartmentPage({
               className="ph-duotone ph-monitor-play text-[2.2rem]"
               style={{ color: dept.color }}
             />
-            Training Videos
+            {t("deptTrainingVideos")}
           </h2>
           <div className="grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-md:grid-cols-1">
             {dept.videos.map((vid) => (
@@ -114,7 +123,7 @@ export default function DepartmentPage({
               className="ph-duotone ph-file-pdf text-[2.2rem]"
               style={{ color: dept.color }}
             />
-            Documents &amp; Resources
+            {t("deptDocuments")}
           </h2>
           {dept.docs.map((doc) => (
             <div
@@ -146,7 +155,7 @@ export default function DepartmentPage({
                 {doc.size} &middot; {doc.type}
               </span>
               <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300">
-                View
+                {t("commonView")}
               </span>
             </div>
           ))}
@@ -159,7 +168,7 @@ export default function DepartmentPage({
               className="ph-duotone ph-users text-[2.2rem]"
               style={{ color: dept.color }}
             />
-            Team Members
+            {t("deptTeamMembers")}
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
             {dept.team.map((member) => (
@@ -205,7 +214,7 @@ export default function DepartmentPage({
                         className="text-[0.75rem] py-1 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
                         style={{ background: dept.color }}
                       >
-                        Head
+                        {t("deptHead")}
                       </span>
                     )}
                   </h4>
@@ -226,7 +235,7 @@ export default function DepartmentPage({
                 className="ph-duotone ph-git-branch text-[2.2rem]"
                 style={{ color: dept.color }}
               />
-              Repositories
+              {t("deptRepositories")}
             </h2>
             <div className="grid grid-cols-2 gap-5 max-lg:grid-cols-1">
               {dept.repos.map((repo) => (
@@ -274,7 +283,7 @@ export default function DepartmentPage({
                 className="ph-duotone ph-file-lock text-[2.2rem]"
                 style={{ color: dept.color }}
               />
-              Environment Files
+              {t("deptEnvironmentFiles")}
             </h2>
             {dept.envFiles.map((file) => (
               <a
@@ -296,7 +305,7 @@ export default function DepartmentPage({
                 </div>
                 <span className="text-[0.8rem] text-muted font-mono shrink-0">{file.size} &middot; TXT</span>
                 <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300 flex items-center gap-2">
-                  <i className="ph-bold ph-download-simple" /> Download
+                  <i className="ph-bold ph-download-simple" /> {t("commonDownload")}
                 </span>
               </a>
             ))}

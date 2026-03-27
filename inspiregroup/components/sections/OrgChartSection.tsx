@@ -3,18 +3,20 @@
 import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useFadeIn } from "@/hooks/useFadeIn";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function OrgChartSection() {
   const { ref, isVisible } = useFadeIn();
+  const { t } = useLanguage();
 
   return (
     <section id="orgchart" className="py-30 relative z-1 bg-main">
       <div className="max-w-7xl mx-auto px-10 max-md:px-6">
         <SectionHeader
-          label="Structure"
+          label={t("orgLabel")}
           labelColorClass="lbl-purple"
-          title="Leadership Chart"
-          subtitle="Get to know our organizational structure — from executive leadership to department heads."
+          title={t("orgTitle")}
+          subtitle={t("orgSubtitle")}
           centered
         />
 

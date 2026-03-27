@@ -2,12 +2,14 @@
 
 import type { EventModalProps } from "@/lib/types";
 import Portal from "@/components/ui/Portal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function EventModal({
   event,
   isOpen,
   onClose,
 }: EventModalProps) {
+  const { t } = useLanguage();
   if (!event) return null;
 
   return (
@@ -61,7 +63,7 @@ export default function EventModal({
             onClick={onClose}
             className="w-full py-4 rounded-full border border-subtle text-content font-bold text-base transition-all duration-300 hover:bg-inset"
           >
-            Close
+            {t("eventClose")}
           </button>
         </div>
       </div>

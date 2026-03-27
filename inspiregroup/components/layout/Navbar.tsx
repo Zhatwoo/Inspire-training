@@ -3,21 +3,23 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
+import { useLanguage } from "@/context/LanguageContext";
+import { languageOptions } from "@/lib/translations";
 
 interface NavbarProps {
   onGoHome: () => void;
 }
 
-const navLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "Ecosystem", href: "#projects" },
-  { label: "News", href: "#announcements" },
-  { label: "Teams", href: "#departments" },
-];
-
 export default function Navbar({ onGoHome }: NavbarProps) {
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
+  const navLinks = [
+    { label: t("navHome"), href: "#hero" },
+    { label: t("navEcosystem"), href: "#projects" },
+    { label: t("navNews"), href: "#announcements" },
+    { label: t("navTeams"), href: "#departments" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -68,10 +70,26 @@ export default function Navbar({ onGoHome }: NavbarProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-1.5 bg-inset border border-subtle rounded-full p-1">
+            {languageOptions.map((option) => (
+              <button
+                key={option.code}
+                onClick={() => setLanguage(option.code)}
+                className={`px-3 py-1.5 rounded-full text-[0.72rem] font-bold transition-all duration-200 ${
+                  language === option.code
+                    ? "bg-content text-main"
+                    : "text-muted hover:text-content"
+                }`}
+                aria-label={`${t("navLanguage")}: ${option.label}`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
           <button
             onClick={toggleTheme}
             className="theme-toggle-btn w-[42px] h-[42px] rounded-full flex items-center justify-center bg-inset border border-subtle text-muted"
-            aria-label="Toggle theme"
+            aria-label={t("navToggleTheme")}
           >
             <i
               className={`ph-bold ${theme === "dark" ? "ph-moon" : "ph-sun"}`}

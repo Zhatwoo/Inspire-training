@@ -5,20 +5,22 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import AppModal from "@/components/modals/AppModal";
 import { appData } from "@/lib/data";
 import { useFadeIn } from "@/hooks/useFadeIn";
+import { useLanguage } from "@/context/LanguageContext";
 import type { AppData } from "@/lib/types";
 
 export default function EcosystemSection() {
   const [selectedApp, setSelectedApp] = useState<AppData | null>(null);
   const { ref: gridRef, isVisible } = useFadeIn();
+  const { t, language } = useLanguage();
 
   return (
     <section id="projects" className="py-30 relative z-[1] bg-elevated">
       <div className="max-w-[1280px] mx-auto px-10 max-md:px-6">
         <SectionHeader
-          label="Ecosystem"
+          label={t("ecoLabel")}
           labelColorClass="lbl-blue"
-          title="Core Applications"
-          subtitle="The unified suite of tools powering our daily operations. Click any application to view features and launch."
+          title={t("ecoTitle")}
+          subtitle={t("ecoSubtitle")}
           centered
         />
 
@@ -50,10 +52,10 @@ export default function EcosystemSection() {
                 {app.name}
               </h3>
               <p className="text-[0.95rem] leading-relaxed mb-7 flex-grow text-white/90">
-                {app.desc}
+                {ecosystemDescriptions[language][app.id] ?? app.desc}
               </p>
               <div className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full text-[0.75rem] font-extrabold uppercase bg-white/20 text-white border border-white/40 backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-white" /> Live
+                <span className="w-1.5 h-1.5 rounded-full bg-white" /> {t("commonLive")}
               </div>
             </button>
           ))}
@@ -68,3 +70,24 @@ export default function EcosystemSection() {
     </section>
   );
 }
+
+const ecosystemDescriptions: Record<"en" | "ja" | "ko", Record<string, string>> = {
+  en: {
+    iwallet: "Digital wallet for secure transactions and financial management.",
+    loopwork: "Workflow management and intelligent task automation platform.",
+    hrx: "Human resources platform for attendance, leave, and payroll.",
+    cms: "Visual web builder for designing and publishing pages - like Figma, but live.",
+  },
+  ja: {
+    iwallet: "安全な取引と資金管理のためのデジタルウォレット。",
+    loopwork: "ワークフロー管理と高度なタスク自動化プラットフォーム。",
+    hrx: "勤怠、休暇、給与を管理する人事プラットフォーム。",
+    cms: "ページの設計と公開を行うビジュアルWebビルダー。Figmaのように直感的で、そのまま公開できます。",
+  },
+  ko: {
+    iwallet: "안전한 거래와 재무 관리를 위한 디지털 월렛.",
+    loopwork: "워크플로우 관리 및 지능형 작업 자동화 플랫폼.",
+    hrx: "근태, 휴가, 급여 관리를 위한 인사 플랫폼.",
+    cms: "페이지 디자인과 게시를 위한 비주얼 웹 빌더로, Figma처럼 직관적이면서 바로 운영 가능합니다.",
+  },
+};
