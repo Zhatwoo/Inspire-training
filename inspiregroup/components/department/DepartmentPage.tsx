@@ -1,18 +1,34 @@
 "use client";
 
-import { useState } from "react";
 import type { DepartmentPageProps, DeptVideo } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { departmentTranslations } from "@/lib/translations";
 
 const LANGS = [
-  { code: "EN", label: "English" },
-  { code: "JA", label: "日本語" },
-  { code: "KO", label: "한국어" },
+  { code: "en", label: "English" },
+  { code: "ja", label: "日本語" },
+  { code: "ko", label: "한국어" },
 ];
 
-function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: string; deptRgb: string }) {
-  const [lang, setLang] = useState("EN");
+function VideoCard({
+  vid,
+  deptId,
+  deptColor,
+  deptRgb,
+}: {
+  vid: DeptVideo;
+  deptId: string;
+  deptColor: string;
+  deptRgb: string;
+}) {
+  const { language, setLanguage } = useLanguage();
+  const langUpper = language.toUpperCase() as "EN" | "JA" | "KO";
+  const nonEnglishLang = language === "ja" ? "JA" : "KO";
+  const translatedByDept = videoDescriptionTranslationsByDepartment[langUpper]?.[deptId]?.[vid.title];
+  const translatedDesc =
+    language === "en"
+      ? vid.desc
+      : translatedByDept ?? videoDescriptionTranslations[nonEnglishLang]?.[vid.desc] ?? vid.desc;
   return (
     <div
       className="d-vid-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) cursor-pointer"
@@ -31,19 +47,19 @@ function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: str
       </div>
       <div className="p-6">
         <h4 className="font-serif text-[1.2rem] font-bold mb-2 text-content">{vid.title}</h4>
-        <p className="text-[0.9rem] text-muted leading-snug">{vid.desc}</p>
+        <p className="text-[0.9rem] text-muted leading-snug">{translatedDesc}</p>
         <span className="text-[0.8rem] text-muted mt-3 inline-block font-mono">{vid.duration}</span>
         <div className="flex gap-2 mt-4">
           {LANGS.map((l) => (
             <button
               key={l.code}
-              onClick={() => setLang(l.code)}
+              onClick={() => setLanguage(l.code)}
               className={`py-1 px-3 rounded-full text-[0.75rem] font-bold border transition-all duration-200 ${
-                lang === l.code
+                language === l.code
                   ? "text-white border-transparent"
                   : "bg-inset text-muted border-subtle hover:text-content"
               }`}
-              style={lang === l.code ? { background: deptColor, borderColor: deptColor } : undefined}
+              style={language === l.code ? { background: deptColor, borderColor: deptColor } : undefined}
             >
               {l.label}
             </button>
@@ -53,6 +69,184 @@ function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: str
     </div>
   );
 }
+
+const videoDescriptionTranslations: Record<"JA" | "KO", Record<string, string>> = {
+  JA: {
+    "End-to-end guide for handling customer inquiries.": "顧客問い合わせ対応のエンドツーエンドガイド。",
+    "How to escalate and resolve complex customer issues.": "複雑な顧客課題のエスカレーションと解決方法。",
+    "Managing customer records and interaction history.": "顧客記録と対応履歴の管理方法。",
+    "Structure, policies, and decision-making framework.": "組織構造、方針、意思決定フレームワーク。",
+    "Guidelines for investor and partner communications.": "投資家・パートナー向けコミュニケーション指針。",
+    "Annual strategy cycle and department alignment.": "年間戦略サイクルと部門アラインメント。",
+    "How to reserve meeting rooms and event spaces.": "会議室・イベントスペースの予約方法。",
+    "Vehicle request and tracking procedures.": "車両申請と追跡手順。",
+    "End-to-end procurement workflow.": "調達のエンドツーエンド業務フロー。",
+    "Configure VPN, proxy settings, and internal DNS for secure access.": "安全なアクセスのためのVPN、プロキシ、社内DNS設定。",
+    "Standard operating procedure for deploying new machines.": "新規端末展開の標準作業手順。",
+    "Step-by-step guide for handling security incidents.": "セキュリティインシデント対応の手順ガイド。",
+    "Steps for evaluating and acquiring new properties.": "新規物件の評価・取得手順。",
+    "How to manage active lease agreements and renewals.": "契約中リースと更新の管理方法。",
+    "Planning and execution of property development projects.": "不動産開発プロジェクトの計画と実行。",
+    "Full walkthrough of Iwallet features and use cases.": "Iwalletの機能と利用ケースの完全ガイド。",
+    "How to process and resolve payment disputes.": "支払い紛争の処理と解決方法。",
+    "Step-by-step user onboarding for new wallet accounts.": "新規ウォレット口座のユーザーオンボーディング手順。",
+    "How we scope, design, and deliver business solutions.": "業務ソリューションの要件定義、設計、提供方法。",
+    "Techniques for uncovering client needs and pain points.": "顧客ニーズと課題を把握する手法。",
+    "End-to-end delivery approach for solution projects.": "ソリューション案件のエンドツーエンド提供アプローチ。",
+    "How Inspire Group structures joint business agreements.": "Inspire Groupにおける共同事業契約の設計方法。",
+    "Steps for evaluating potential joint venture partners.": "合弁候補パートナーの評価手順。",
+    "Overview of partnership revenue and profit sharing.": "提携における売上・利益分配の概要。",
+    "Logo usage, color palette, and tone-of-voice standards.": "ロゴ使用、カラーパレット、トーン&マナー基準。",
+    "How to plan and execute a marketing campaign.": "マーケティングキャンペーンの計画と実行方法。",
+    "Content calendar, posting schedule, and engagement tips.": "コンテンツカレンダー、投稿計画、エンゲージメント向上のコツ。",
+    "Overview of monthly and quarterly maintenance tasks.": "月次・四半期の保守タスク概要。",
+    "How to track and report electricity, water, and HVAC usage.": "電気・水道・空調使用量の追跡と報告方法。",
+    "Submitting and managing maintenance work orders.": "保守作業依頼の申請と管理方法。",
+  },
+  KO: {
+    "End-to-end guide for handling customer inquiries.": "고객 문의 처리 전 과정을 다루는 가이드입니다.",
+    "How to escalate and resolve complex customer issues.": "복잡한 고객 이슈를 에스컬레이션하고 해결하는 방법.",
+    "Managing customer records and interaction history.": "고객 기록 및 상호작용 이력 관리 방법.",
+    "Structure, policies, and decision-making framework.": "조직 구조, 정책, 의사결정 프레임워크.",
+    "Guidelines for investor and partner communications.": "투자자 및 파트너 커뮤니케이션 가이드라인.",
+    "Annual strategy cycle and department alignment.": "연간 전략 사이클 및 부서 정렬.",
+    "How to reserve meeting rooms and event spaces.": "회의실 및 행사 공간 예약 방법.",
+    "Vehicle request and tracking procedures.": "차량 요청 및 추적 절차.",
+    "End-to-end procurement workflow.": "조달 업무의 전체 워크플로우.",
+    "Configure VPN, proxy settings, and internal DNS for secure access.": "보안 접속을 위한 VPN, 프록시, 내부 DNS 설정 방법.",
+    "Standard operating procedure for deploying new machines.": "신규 장비 배포를 위한 표준 운영 절차.",
+    "Step-by-step guide for handling security incidents.": "보안 사고 대응 단계별 가이드.",
+    "Steps for evaluating and acquiring new properties.": "신규 부동산 평가 및 취득 절차.",
+    "How to manage active lease agreements and renewals.": "진행 중인 임대 계약 및 갱신 관리 방법.",
+    "Planning and execution of property development projects.": "부동산 개발 프로젝트의 기획 및 실행.",
+    "Full walkthrough of Iwallet features and use cases.": "Iwallet 기능과 활용 사례 전체 안내.",
+    "How to process and resolve payment disputes.": "결제 분쟁 처리 및 해결 방법.",
+    "Step-by-step user onboarding for new wallet accounts.": "신규 월렛 계정 사용자 온보딩 단계별 가이드.",
+    "How we scope, design, and deliver business solutions.": "비즈니스 솔루션의 범위 정의, 설계, 제공 방식.",
+    "Techniques for uncovering client needs and pain points.": "고객 니즈와 페인포인트를 파악하는 기법.",
+    "End-to-end delivery approach for solution projects.": "솔루션 프로젝트의 엔드투엔드 전달 방식.",
+    "How Inspire Group structures joint business agreements.": "Inspire Group의 공동사업 계약 구조화 방식.",
+    "Steps for evaluating potential joint venture partners.": "잠재 합작 파트너 평가 절차.",
+    "Overview of partnership revenue and profit sharing.": "파트너십 매출 및 이익 배분 개요.",
+    "Logo usage, color palette, and tone-of-voice standards.": "로고 사용, 컬러 팔레트, 톤앤매너 기준.",
+    "How to plan and execute a marketing campaign.": "마케팅 캠페인 기획 및 실행 방법.",
+    "Content calendar, posting schedule, and engagement tips.": "콘텐츠 캘린더, 게시 일정, 참여도 향상 팁.",
+    "Overview of monthly and quarterly maintenance tasks.": "월간 및 분기 유지보수 작업 개요.",
+    "How to track and report electricity, water, and HVAC usage.": "전기, 수도, HVAC 사용량 추적 및 보고 방법.",
+    "Submitting and managing maintenance work orders.": "유지보수 작업 지시 제출 및 관리 방법.",
+  },
+};
+
+const videoDescriptionTranslationsByDepartment: Record<
+  "EN" | "JA" | "KO",
+  Record<string, Record<string, string>>
+> = {
+  EN: {},
+  JA: {
+    customer: {
+      "Customer Support Process": "顧客問い合わせ対応のエンドツーエンドガイド。",
+      "Escalation Procedures": "複雑な顧客課題のエスカレーションと解決方法。",
+      "CRM System Overview": "顧客記録と対応履歴の管理方法。",
+    },
+    corporate: {
+      "Corporate Governance Overview": "組織構造、方針、意思決定フレームワーク。",
+      "Stakeholder Communication": "投資家・パートナー向けコミュニケーション指針。",
+      "Strategic Planning Process": "年間戦略サイクルと部門アラインメント。",
+    },
+    admin: {
+      "Facility Booking System": "会議室・イベントスペースの予約方法。",
+      "Fleet Management Overview": "車両申請と追跡手順。",
+      "Supply Chain Process": "調達のエンドツーエンド業務フロー。",
+    },
+    it: {
+      "Network Setup Guide": "安全なアクセスのためのVPN、プロキシ、社内DNS設定。",
+      "Workstation Imaging SOP": "新規端末展開の標準作業手順。",
+      "Incident Response Protocol": "セキュリティインシデント対応の手順ガイド。",
+    },
+    realestate: {
+      "Property Acquisition Process": "新規物件の評価・取得手順。",
+      "Lease Management Guide": "契約中リースと更新の管理方法。",
+      "Site Development Overview": "不動産開発プロジェクトの計画と実行。",
+    },
+    iwallet: {
+      "Iwallet Product Overview": "Iwalletの機能と利用ケースの完全ガイド。",
+      "Transaction Dispute Handling": "支払い紛争の処理と解決方法。",
+      "Wallet Onboarding Flow": "新規ウォレット口座のユーザーオンボーディング手順。",
+    },
+    solution: {
+      "Solution Design Framework": "業務ソリューションの要件定義、設計、提供方法。",
+      "Client Discovery Process": "顧客ニーズと課題を把握する手法。",
+      "Implementation Methodology": "ソリューション案件のエンドツーエンド提供アプローチ。",
+    },
+    jba: {
+      "JBA Partnership Framework": "Inspire Groupにおける共同事業契約の設計方法。",
+      "Due Diligence Process": "合弁候補パートナーの評価手順。",
+      "Revenue Sharing Models": "提携における売上・利益分配の概要。",
+    },
+    marketing: {
+      "Brand Guidelines Overview": "ロゴ使用、カラーパレット、トーン&マナー基準。",
+      "Campaign Planning Process": "マーケティングキャンペーンの計画と実行方法。",
+      "Social Media Strategy": "コンテンツカレンダー、投稿計画、エンゲージメント向上のコツ。",
+    },
+    utility: {
+      "Preventive Maintenance Schedule": "月次・四半期の保守タスク概要。",
+      "Utilities Monitoring Guide": "電気・水道・空調使用量の追跡と報告方法。",
+      "Work Order System Tutorial": "保守作業依頼の申請と管理方法。",
+    },
+  },
+  KO: {
+    customer: {
+      "Customer Support Process": "고객 문의 처리 전 과정을 다루는 가이드입니다.",
+      "Escalation Procedures": "복잡한 고객 이슈를 에스컬레이션하고 해결하는 방법.",
+      "CRM System Overview": "고객 기록 및 상호작용 이력 관리 방법.",
+    },
+    corporate: {
+      "Corporate Governance Overview": "조직 구조, 정책, 의사결정 프레임워크.",
+      "Stakeholder Communication": "투자자 및 파트너 커뮤니케이션 가이드라인.",
+      "Strategic Planning Process": "연간 전략 사이클 및 부서 정렬.",
+    },
+    admin: {
+      "Facility Booking System": "회의실 및 행사 공간 예약 방법.",
+      "Fleet Management Overview": "차량 요청 및 추적 절차.",
+      "Supply Chain Process": "조달 업무의 전체 워크플로우.",
+    },
+    it: {
+      "Network Setup Guide": "보안 접속을 위한 VPN, 프록시, 내부 DNS 설정 방법.",
+      "Workstation Imaging SOP": "신규 장비 배포를 위한 표준 운영 절차.",
+      "Incident Response Protocol": "보안 사고 대응 단계별 가이드.",
+    },
+    realestate: {
+      "Property Acquisition Process": "신규 부동산 평가 및 취득 절차.",
+      "Lease Management Guide": "진행 중인 임대 계약 및 갱신 관리 방법.",
+      "Site Development Overview": "부동산 개발 프로젝트의 기획 및 실행.",
+    },
+    iwallet: {
+      "Iwallet Product Overview": "Iwallet 기능과 활용 사례 전체 안내.",
+      "Transaction Dispute Handling": "결제 분쟁 처리 및 해결 방법.",
+      "Wallet Onboarding Flow": "신규 월렛 계정 사용자 온보딩 단계별 가이드.",
+    },
+    solution: {
+      "Solution Design Framework": "비즈니스 솔루션의 범위 정의, 설계, 제공 방식.",
+      "Client Discovery Process": "고객 니즈와 페인포인트를 파악하는 기법.",
+      "Implementation Methodology": "솔루션 프로젝트의 엔드투엔드 전달 방식.",
+    },
+    jba: {
+      "JBA Partnership Framework": "Inspire Group의 공동사업 계약 구조화 방식.",
+      "Due Diligence Process": "잠재 합작 파트너 평가 절차.",
+      "Revenue Sharing Models": "파트너십 매출 및 이익 배분 개요.",
+    },
+    marketing: {
+      "Brand Guidelines Overview": "로고 사용, 컬러 팔레트, 톤앤매너 기준.",
+      "Campaign Planning Process": "마케팅 캠페인 기획 및 실행 방법.",
+      "Social Media Strategy": "콘텐츠 캘린더, 게시 일정, 참여도 향상 팁.",
+    },
+    utility: {
+      "Preventive Maintenance Schedule": "월간 및 분기 유지보수 작업 개요.",
+      "Utilities Monitoring Guide": "전기, 수도, HVAC 사용량 추적 및 보고 방법.",
+      "Work Order System Tutorial": "유지보수 작업 지시 제출 및 관리 방법.",
+    },
+  },
+};
 
 export default function DepartmentPage({
   department: dept,
@@ -111,7 +305,13 @@ export default function DepartmentPage({
           </h2>
           <div className="grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-md:grid-cols-1">
             {dept.videos.map((vid) => (
-              <VideoCard key={vid.title} vid={vid} deptColor={dept.color} deptRgb={dept.rgb} />
+              <VideoCard
+                key={vid.title}
+                vid={vid}
+                deptId={dept.id}
+                deptColor={dept.color}
+                deptRgb={dept.rgb}
+              />
             ))}
           </div>
         </div>

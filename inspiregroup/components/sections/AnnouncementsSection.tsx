@@ -230,7 +230,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
   ja: {
     event1: {
       tagLabel: "イベント",
-      title: "年次サミット2026",
+      title: "Annual Summit 2026",
       shortDesc: "基調講演、ワークショップ、チームビルディングを3日間にわたり実施します。",
       fullDesc:
         "Inspire年次サミットでは、全部門が集まり3日間のプログラムを実施します。経営陣の基調講演、先端技術に関するワークショップ、部門横断の協業セッション、組織文化を強化するチームビルディング活動を行います。",
@@ -239,7 +239,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
     },
     event2: {
       tagLabel: "更新",
-      title: "ハイブリッド勤務ポリシー",
+      title: "Hybrid Work Policy",
       shortDesc: "柔軟なハイブリッド勤務モデルを正式導入します。新ガイドラインをご確認ください。",
       fullDesc:
         "2026年4月より、Inspire Groupはハイブリッド勤務モデルを正式導入します。上長承認のもと週3日まで在宅勤務が可能です。機材手当、連絡ルール、評価基準を含む最新ガイドラインはHRポータルで確認できます。",
@@ -248,7 +248,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
     },
     event3: {
       tagLabel: "表彰",
-      title: "社員スポットライト",
+      title: "Employee Spotlight",
       shortDesc: "IT部門のIwallet v3成功リリースを祝福します。",
       fullDesc:
         "IT部門は次世代決済プラットフォームIwallet v3の成功リリースにより表彰されました。チームは予定より2週間早くプロジェクトを完了し、本番環境で重大バグゼロを達成しました。素晴らしい成果です。",
@@ -257,7 +257,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
     },
     event4: {
       tagLabel: "お知らせ",
-      title: "システムメンテナンス",
+      title: "System Maintenance",
       shortDesc: "今週末にポータルと開発サーバーの定期メンテナンスを実施します。",
       fullDesc:
         "今週末（3月15日-16日）、社員ポータル、開発サーバー、社内APIに対する定期メンテナンスを実施します。停止時間は土曜日22:00（PHT）開始で約4時間を予定しています。重要サービスにはフェイルオーバー構成を適用しています。事前に作業保存をお願いします。",
@@ -268,7 +268,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
   ko: {
     event1: {
       tagLabel: "이벤트",
-      title: "연례 서밋 2026",
+      title: "Annual Summit 2026",
       shortDesc: "기조연설, 워크숍, 팀 빌딩 프로그램이 3일간 진행됩니다.",
       fullDesc:
         "연례 Inspire 서밋은 전 부서가 모여 3일간 진행되는 행사입니다. 경영진의 기조연설, 신기술 워크숍, 부서 간 협업 세션, 조직 문화를 강화하는 팀 빌딩 활동으로 구성됩니다.",
@@ -277,7 +277,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
     },
     event2: {
       tagLabel: "업데이트",
-      title: "하이브리드 근무 정책",
+      title: "Hybrid Work Policy",
       shortDesc: "유연한 하이브리드 근무 모델을 공식 도입합니다. 새 가이드라인을 확인하세요.",
       fullDesc:
         "2026년 4월부터 Inspire Group은 하이브리드 근무 모델을 공식 도입합니다. 관리자 승인 시 주 3일까지 원격 근무가 가능합니다. 장비 지원, 커뮤니케이션 규칙, 성과 기대치가 포함된 최신 가이드라인은 HR 포털에서 확인할 수 있습니다.",
@@ -286,7 +286,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
     },
     event3: {
       tagLabel: "수상",
-      title: "직원 스포트라이트",
+      title: "Employee Spotlight",
       shortDesc: "Iwallet v3를 성공적으로 출시한 IT 부서에 축하를 전합니다.",
       fullDesc:
         "IT 부서는 차세대 디지털 결제 플랫폼 Iwallet v3의 성공적인 출시로 표창을 받았습니다. 팀은 일정보다 2주 빠르게 프로젝트를 완료했고, 운영 환경에서 치명적 버그 0건을 유지했습니다. 팀 전체에 축하를 보냅니다.",
@@ -295,7 +295,7 @@ const announcementContent: Record<"en" | "ja" | "ko", Record<string, EventLocale
     },
     event4: {
       tagLabel: "안내",
-      title: "시스템 점검",
+      title: "System Maintenance",
       shortDesc: "이번 주말 포털 및 개발 서버 정기 점검이 진행됩니다.",
       fullDesc:
         "이번 주말(3월 15-16일) 직원 포털, 개발 서버, 내부 API에 대한 정기 점검이 진행됩니다. 예상 중단 시간은 토요일 PHT 기준 오후 10시 시작 약 4시간입니다. 핵심 서비스에는 페일오버 시스템이 적용됩니다. 작업을 미리 저장해 주세요.",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -14,6 +14,8 @@ export default function Navbar({ onGoHome }: NavbarProps) {
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
   const navLinks = [
     { label: t("navHome"), href: "#hero" },
     { label: t("navEcosystem"), href: "#projects" },
@@ -25,6 +27,17 @@ export default function Navbar({ onGoHome }: NavbarProps) {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onClickOutside = (event: MouseEvent) => {
+      if (!langMenuRef.current) return;
+      if (!langMenuRef.current.contains(event.target as Node)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -70,21 +83,39 @@ export default function Navbar({ onGoHome }: NavbarProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1.5 bg-inset border border-subtle rounded-full p-1">
-            {languageOptions.map((option) => (
-              <button
-                key={option.code}
-                onClick={() => setLanguage(option.code)}
-                className={`px-3 py-1.5 rounded-full text-[0.72rem] font-bold transition-all duration-200 ${
-                  language === option.code
-                    ? "bg-content text-main"
-                    : "text-muted hover:text-content"
-                }`}
-                aria-label={`${t("navLanguage")}: ${option.label}`}
-              >
-                {option.label}
-              </button>
-            ))}
+          <div ref={langMenuRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setLangOpen((prev) => !prev)}
+              className="h-[42px] min-w-[110px] pl-8 pr-9 rounded-full border border-subtle bg-nav-blur backdrop-blur-[12px] shadow-(--shadow-sm) text-content text-[0.78rem] font-bold tracking-wide cursor-pointer hover:text-content/90 transition-colors duration-200"
+              aria-label={t("navLanguage")}
+              aria-expanded={langOpen}
+            >
+              {language.toUpperCase()}
+            </button>
+            <i className="ph-bold ph-translate absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none text-[0.95rem]" />
+            <i className="ph-bold ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none text-[0.8rem]" />
+            {langOpen && (
+              <div className="absolute right-0 mt-2 w-[130px] rounded-2xl border border-subtle bg-nav-blur backdrop-blur-[16px] shadow-[var(--shadow-lg)] p-1.5 z-[1100]">
+                {languageOptions.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    onClick={() => {
+                      setLanguage(option.code);
+                      setLangOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 rounded-xl text-[0.78rem] font-bold transition-all duration-200 ${
+                      language === option.code
+                        ? "bg-content text-main"
+                        : "text-content hover:bg-inset"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <button
             onClick={toggleTheme}
