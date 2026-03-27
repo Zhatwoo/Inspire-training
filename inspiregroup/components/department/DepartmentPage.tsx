@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { DepartmentPageProps, DeptVideo } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { departmentTranslations } from "@/lib/translations";
@@ -15,11 +16,13 @@ function VideoCard({
   deptId,
   deptColor,
   deptRgb,
+  onPlay,
 }: {
   vid: DeptVideo;
   deptId: string;
   deptColor: string;
   deptRgb: string;
+  onPlay?: () => void;
 }) {
   const { language, setLanguage } = useLanguage();
   const langUpper = language.toUpperCase() as "EN" | "JA" | "KO";
@@ -33,6 +36,7 @@ function VideoCard({
     <div
       className="d-vid-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) cursor-pointer"
       style={{ "--dept-color": deptColor, "--dept-rgb": deptRgb } as React.CSSProperties}
+      onClick={() => onPlay?.()}
     >
       <div
         className="h-[200px] relative flex items-center justify-center"
@@ -53,7 +57,11 @@ function VideoCard({
           {LANGS.map((l) => (
             <button
               key={l.code}
-              onClick={() => setLanguage(l.code)}
+              onClick={(e) => {
+                e.stopPropagation();
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                setLanguage(l.code as any);
+              }}
               className={`py-1 px-3 rounded-full text-[0.75rem] font-bold border transition-all duration-200 ${
                 language === l.code
                   ? "text-white border-transparent"
@@ -253,6 +261,7 @@ export default function DepartmentPage({
   onBack,
 }: DepartmentPageProps) {
   const { t, language } = useLanguage();
+  const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
   const localized =
     departmentTranslations[language as keyof typeof departmentTranslations][
       dept.id
@@ -311,6 +320,10 @@ export default function DepartmentPage({
                 deptId={dept.id}
                 deptColor={dept.color}
                 deptRgb={dept.rgb}
+                onPlay={() => {
+                  if (vid.url) setActiveVideoUrl(vid.url);
+                  else alert("Video is not available on NAS server yet.");
+                }}
               />
             ))}
           </div>
@@ -512,6 +525,26 @@ export default function DepartmentPage({
           </div>
         )}
       </div>
+
+      {/* Video Modal Overlay */}
+      {activeVideoUrl && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
+            <button
+              onClick={() => setActiveVideoUrl(null)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center transition-colors border border-white/20"
+            >
+              <i className="ph-bold ph-x text-xl" />
+            </button>
+            <video
+              controls
+              autoPlay
+              className="w-full h-full object-contain"
+              src={activeVideoUrl}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

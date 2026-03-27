@@ -230,6 +230,7 @@ export const departmentData: DepartmentData[] = [
     desc: "Facilities management, logistics, procurement, and office operations.",
     tags: ["Facilities", "Logistics", "Procurement", "Operations"],
     videos: [
+      { title: "Company Overview", desc: "Comprehensive overview of the company structure and policies.", duration: "15:00", url: "/api/media/video/ADMINDEPARTMENT/COMPANYOVERVIEW.mp4" },
       { title: "Facility Booking System", desc: "How to reserve meeting rooms and event spaces.", duration: "5:30" },
       { title: "Fleet Management Overview", desc: "Vehicle request and tracking procedures.", duration: "8:45" },
       { title: "Supply Chain Process", desc: "End-to-end procurement workflow.", duration: "11:20" },
@@ -292,6 +293,8 @@ export const departmentData: DepartmentData[] = [
     desc: "Property acquisition, leasing, portfolio management, and site development.",
     tags: ["Property", "Leasing", "Acquisitions", "Development"],
     videos: [
+      { title: "Real Estate Overview", desc: "Real estate training and overview.", duration: "20:00", url: "/api/media/video/REALESTATEDEPARTMENT/REALESTATE.mp4" },
+      { title: "GDP Sales (Real Estate)", desc: "GDP Sales training for the Real Estate department.", duration: "15:00", url: "/api/media/video/REALESTATEDEPARTMENT/GDPSALES.mp4" },
       { title: "Property Acquisition Process", desc: "Steps for evaluating and acquiring new properties.", duration: "11:30" },
       { title: "Lease Management Guide", desc: "How to manage active lease agreements and renewals.", duration: "8:15" },
       { title: "Site Development Overview", desc: "Planning and execution of property development projects.", duration: "13:45" },
@@ -317,6 +320,7 @@ export const departmentData: DepartmentData[] = [
     desc: "Digital wallet operations, payment processing, and financial product support.",
     tags: ["Payments", "Digital Wallet", "Finance", "Support"],
     videos: [
+      { title: "Iwallet Training", desc: "Comprehensive Iwallet training video.", duration: "18:00", url: "/api/media/video/IWALLETDEPARTMENT/IWALLET.mp4" },
       { title: "Iwallet Product Overview", desc: "Full walkthrough of Iwallet features and use cases.", duration: "9:20" },
       { title: "Transaction Dispute Handling", desc: "How to process and resolve payment disputes.", duration: "7:40" },
       { title: "Wallet Onboarding Flow", desc: "Step-by-step user onboarding for new wallet accounts.", duration: "6:55" },
@@ -353,6 +357,7 @@ export const departmentData: DepartmentData[] = [
     desc: "Business solutions, consulting, and technology-driven innovation services.",
     tags: ["Consulting", "Innovation", "Solutions", "Strategy"],
     videos: [
+      { title: "GDP Sales", desc: "GDP Sales training for the Solution department.", duration: "15:00", url: "/api/media/video/SOLUTIONDEPARTMENT/GDPSALES.mp4" },
       { title: "Solution Design Framework", desc: "How we scope, design, and deliver business solutions.", duration: "10:20" },
       { title: "Client Discovery Process", desc: "Techniques for uncovering client needs and pain points.", duration: "8:05" },
       { title: "Implementation Methodology", desc: "End-to-end delivery approach for solution projects.", duration: "12:15" },
@@ -428,6 +433,8 @@ export const departmentData: DepartmentData[] = [
     desc: "Consulting services, strategic planning, and cross-functional advisory support.",
     tags: ["Consulting", "Strategy", "Advisory", "Support"],
     videos: [
+      { title: "Consultancy Services", desc: "Overview of consultancy services.", duration: "25:00", url: "/api/media/video/CONSULTANCYDEPARTMENT/CONSULTANCYSERVICE.mp4" },
+      { title: "GDP Sales (Consultancy)", desc: "GDP Sales training for the Consultancy department.", duration: "15:00", url: "/api/media/video/CONSULTANCYDEPARTMENT/CONSULTANCYSERVICE.mp4" },
       { title: "Preventive Maintenance Schedule", desc: "Overview of monthly and quarterly maintenance tasks.", duration: "6:50" },
       { title: "Utilities Monitoring Guide", desc: "How to track and report electricity, water, and HVAC usage.", duration: "5:40" },
       { title: "Work Order System Tutorial", desc: "Submitting and managing maintenance work orders.", duration: "4:55" },
