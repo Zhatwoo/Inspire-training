@@ -46,6 +46,7 @@ export interface DeptVideo {
   title: string;
   desc: string;
   duration: string;
+  url?: string;
 }
 
 export interface DeptDoc {
