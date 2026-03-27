@@ -1,29 +1,33 @@
-version: "3.8"
-
 services:
   inspire-portal:
+    env_file:
+      - ../.env
     build:
       context: ..
       dockerfile: docker/Dockerfile
     container_name: inspire-portal
     ports:
-      - "3001:3001"
+      - "3002:3002"
     environment:
       - NODE_ENV=production
-      - PORT=3001
+      - PORT=3002
       - MYSQL_HOST=host.docker.internal
       - MYSQL_PORT=3002
-      - MYSQL_USER=${MYSQL_USER:-root}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER:-inspire_user}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-inspire_pass}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-inspire_portal}
       - NAS_BASE_PATH=${NAS_BASE_PATH:-//NAS/shared}
     volumes:
       - ${NAS_BASE_PATH:-//NAS/shared}:/mnt/nas:ro
     restart: unless-stopped
+    depends_on:
+      - mysql
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
   mysql:
+    env_file:
+      - ../.env
     image: mysql:8.0
     container_name: inspire-mysql
     ports:
