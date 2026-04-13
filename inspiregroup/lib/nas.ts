@@ -1,10 +1,18 @@
 import path from "path";
 import fs from "fs";
 
-const NAS_BASE_PATH = process.env.NAS_BASE_PATH || "//NAS/shared";
+const RAW_NAS_BASE_PATH = process.env.NAS_BASE_PATH || "//NAS/shared";
+export const isHttpNas = RAW_NAS_BASE_PATH.startsWith("http://") || RAW_NAS_BASE_PATH.startsWith("https://");
+const NAS_BASE_PATH = isHttpNas ? RAW_NAS_BASE_PATH : path.resolve(RAW_NAS_BASE_PATH);
 
 export function resolveNasPath(relativePath: string): string {
-  const resolved = path.join(NAS_BASE_PATH, relativePath);
+  if (isHttpNas) {
+    const baseUrl = NAS_BASE_PATH.endsWith('/') ? NAS_BASE_PATH : `${NAS_BASE_PATH}/`;
+    const rel = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
+    return `${baseUrl}${rel}`;
+  }
+
+  const resolved = path.resolve(NAS_BASE_PATH, relativePath);
 
   // Prevent directory traversal attacks
   if (!resolved.startsWith(NAS_BASE_PATH)) {

@@ -231,6 +231,7 @@ export const departmentData: DepartmentData[] = [
     tags: ["Facilities", "Logistics", "Procurement", "Operations"],
     videos: [
       { title: "Company Overview", desc: "Comprehensive overview of the company structure and policies.", duration: "15:00", url: "/api/media/video/ADMINDEPARTMENT/COMPANYOVERVIEW.mp4" },
+      { title: "Admin Training", desc: "Admin training for the Admin department.", duration: "15:00", url: "/api/media/video/ADMINDEPARTMENT/ADMIN.mp4" },
       { title: "Facility Booking System", desc: "How to reserve meeting rooms and event spaces.", duration: "5:30" },
       { title: "Fleet Management Overview", desc: "Vehicle request and tracking procedures.", duration: "8:45" },
       { title: "Supply Chain Process", desc: "End-to-end procurement workflow.", duration: "11:20" },
@@ -256,6 +257,7 @@ export const departmentData: DepartmentData[] = [
     desc: "Infrastructure, development, and tech support for the entire organization.",
     tags: ["Infrastructure", "DevOps", "Security", "Support"],
     videos: [
+      { title: "IT Training", desc: "IT training and overview.", duration: "15:00", url: "/api/media/video/ITDEPARTMENT/IT.mp4" },
       { title: "Network Setup Guide", desc: "Configure VPN, proxy settings, and internal DNS for secure access.", duration: "12:34" },
       { title: "Workstation Imaging SOP", desc: "Standard operating procedure for deploying new machines.", duration: "8:21" },
       { title: "Incident Response Protocol", desc: "Step-by-step guide for handling security incidents.", duration: "15:07" },
@@ -357,6 +359,7 @@ export const departmentData: DepartmentData[] = [
     desc: "Business solutions, consulting, and technology-driven innovation services.",
     tags: ["Consulting", "Innovation", "Solutions", "Strategy"],
     videos: [
+      { title: "ITECH Training", desc: "ITECH training for the Solution department.", duration: "15:00", url: "/api/media/video/SOLUTIONDEPARTMENT/ITECH.mp4" },
       { title: "GDP Sales", desc: "GDP Sales training for the Solution department.", duration: "15:00", url: "/api/media/video/SOLUTIONDEPARTMENT/GDPSALES.mp4" },
       { title: "Solution Design Framework", desc: "How we scope, design, and deliver business solutions.", duration: "10:20" },
       { title: "Client Discovery Process", desc: "Techniques for uncovering client needs and pain points.", duration: "8:05" },
