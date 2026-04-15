@@ -231,6 +231,7 @@ export const departmentData: DepartmentData[] = [
     tags: ["Facilities", "Logistics", "Procurement", "Operations"],
     videos: [
       { title: "Company Overview", desc: "Comprehensive overview of the company structure and policies.", duration: "15:00", url: "/api/media/video/ADMINDEPARTMENT/COMPANYOVERVIEW.mp4" },
+      { title: "Admin Training", desc: "Admin training for the Admin department.", duration: "15:00", url: "/api/media/video/ADMINDEPARTMENT/ADMIN.mp4" },
       { title: "Facility Booking System", desc: "How to reserve meeting rooms and event spaces.", duration: "5:30" },
       { title: "Fleet Management Overview", desc: "Vehicle request and tracking procedures.", duration: "8:45" },
       { title: "Supply Chain Process", desc: "End-to-end procurement workflow.", duration: "11:20" },
@@ -253,36 +254,20 @@ export const departmentData: DepartmentData[] = [
     icon: "ph-duotone ph-cpu",
     color: "#2563eb",
     rgb: "37,99,235",
-    desc: "Infrastructure, development, and tech support for the entire organization.",
+    desc: "The IT Department serves as the robust technological backbone of Inspire Group. We manage, secure, and innovate the organization's comprehensive digital infrastructure, ensuring seamless operations across all services. Our dedicated team is responsible for deploying essential enterprise tools, providing expert technical support, maintaining resilient networks, and developing advanced, customized solutions to empower every department's success.",
     tags: ["Infrastructure", "DevOps", "Security", "Support"],
     videos: [
-      { title: "Network Setup Guide", desc: "Configure VPN, proxy settings, and internal DNS for secure access.", duration: "12:34" },
-      { title: "Workstation Imaging SOP", desc: "Standard operating procedure for deploying new machines.", duration: "8:21" },
-      { title: "Incident Response Protocol", desc: "Step-by-step guide for handling security incidents.", duration: "15:07" },
+      { title: "IT Department Overview", desc: "An in-depth, comprehensive overview of the IT Department's core functions. This presentation covers our strategic role within the organization, fundamental IT policies, and provides a comprehensive introduction to the essential enterprise tools, software, and systems utilized daily to maintain peak operational excellence and drive organizational growth.", duration: "15:00", url: "/api/media/video/ITDEPARTMENT/IT.mp4" },
     ],
-    docs: [
-      { title: "IT Security Policy 2026", desc: "Updated security guidelines and compliance requirements.", size: "2.4 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
-      { title: "Network Architecture Map", desc: "Complete topology of internal and external networks.", size: "5.1 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
-      { title: "Software Inventory List", desc: "Licensed software and version tracking sheet.", size: "1.8 MB", type: "XLSX", icon: "ph-duotone ph-file-xls" },
-    ],
+    docs: [],
     team: [
-      { name: "Marcus Chen", role: "IT Director", initials: "MC", head: true },
-      { name: "Sarah Kim", role: "Senior Developer", initials: "SK" },
-      { name: "Jake Torres", role: "System Administrator", initials: "JT" },
-      { name: "Amy Reyes", role: "Network Engineer", initials: "AR" },
-      { name: "David Park", role: "Help Desk Lead", initials: "DP" },
+      { name: "Brian Perez", role: "CTO", initials: "BP", head: true },
+      { name: "Jhun Darel Elli", role: "IT Director", initials: "JE" },
+      { name: "Neo Dela Torre", role: "Chief of Software Development", initials: "ND" },
+      { name: "Benedick Cervantes", role: "Chief of IT Infrastructure", initials: "BC" },
     ],
-    repos: [
-      { name: "inspire-portal", desc: "Main employee portal frontend and API. Next.js + Tailwind.", envs: ["prod", "staging"], url: "https://github.com/inspiregroup/inspire-portal" },
-      { name: "iwallet-api", desc: "Payment processing microservice with multi-currency support.", envs: ["prod", "staging"], url: "https://github.com/inspiregroup/iwallet-api" },
-      { name: "infra-scripts", desc: "Ansible playbooks and Terraform configs for server provisioning.", envs: ["prod"], url: "https://github.com/inspiregroup/infra-scripts" },
-      { name: "ai-toolkit", desc: "AI assistant configuration and prompt files for automated dev support.", envs: ["prod"], url: "https://github.com/inspiregroup/ai-toolkit" },
-    ],
-    envFiles: [
-      { name: ".env.production.txt", desc: "Production environment variables for the portal and API services.", size: "3 KB" },
-      { name: ".env.staging.txt", desc: "Staging environment variables — mirrors production with test credentials.", size: "3 KB" },
-      { name: ".env.infra.txt", desc: "Infrastructure secrets for Terraform and Ansible provisioning scripts.", size: "2 KB" },
-    ],
+    repos: [],
+    envFiles: []
   },
   {
     id: "realestate",
@@ -357,6 +342,7 @@ export const departmentData: DepartmentData[] = [
     desc: "Business solutions, consulting, and technology-driven innovation services.",
     tags: ["Consulting", "Innovation", "Solutions", "Strategy"],
     videos: [
+      { title: "ITECH Training", desc: "ITECH training for the Solution department.", duration: "15:00", url: "/api/media/video/SOLUTIONDEPARTMENT/ITECH.mp4" },
       { title: "GDP Sales", desc: "GDP Sales training for the Solution department.", duration: "15:00", url: "/api/media/video/SOLUTIONDEPARTMENT/GDPSALES.mp4" },
       { title: "Solution Design Framework", desc: "How we scope, design, and deliver business solutions.", duration: "10:20" },
       { title: "Client Discovery Process", desc: "Techniques for uncovering client needs and pain points.", duration: "8:05" },
