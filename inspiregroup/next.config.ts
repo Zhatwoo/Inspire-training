@@ -2,9 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  serverExternalPackages: ["mysql2"],
-  // Allow mobile/external device to access dev server without CORS issues
-  allowedDevOrigins: ["192.168.1.243"],
+  // Allows your device at 192.168.1.135 to access the dev server
+  allowedDevOrigins: ["192.168.1.135", "192.168.1.243"],
 };
 
 export default nextConfig;

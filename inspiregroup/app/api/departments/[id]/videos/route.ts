@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import pool from "@/lib/db";
 
 export async function GET(
   _request: Request,
@@ -7,10 +6,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const [rows] = await pool.query(
-      "SELECT * FROM videos WHERE department_id = ? ORDER BY created_at DESC",
-      [id]
-    );
+    const rows: any[] = []; // TODO: Implement NAS read
     return NextResponse.json(rows);
   } catch (error) {
     console.error("Failed to fetch videos:", error);

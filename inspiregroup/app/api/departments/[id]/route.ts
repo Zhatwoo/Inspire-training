@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import pool from "@/lib/db";
-import type { RowDataPacket } from "mysql2";
 
 export async function GET(
   _request: Request,
@@ -8,10 +6,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const [rows] = await pool.query<RowDataPacket[]>(
-      "SELECT * FROM departments WHERE id = ?",
-      [id]
-    );
+    const rows: any[] = []; // TODO: Implement NAS read
     if (rows.length === 0) {
       return NextResponse.json(
         { error: "Department not found" },
