@@ -11,6 +11,7 @@ export default function BulletinSection() {
   const { ref, isVisible } = useFadeIn();
   const [selectedLaw, setSelectedLaw] = useState<PhilippineLawData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const content = bulletinContent.en;
 
   const handleOpenLawModal = (law: PhilippineLawData) => {
     setSelectedLaw(law);
@@ -29,10 +30,10 @@ export default function BulletinSection() {
     >
       <div className="max-w-7xl mx-auto px-10 max-md:px-6">
         <SectionHeader
-          label={t("bulletinLabel")}
+          label="Bulletin"
           labelColorClass="lbl-orange"
-          title={t("bulletinTitle")}
-          subtitle={t("bulletinSubtitle")}
+          title="Company Bulletin Board"
+          subtitle="Important Updates & Guidelines"
           centered
         />
 

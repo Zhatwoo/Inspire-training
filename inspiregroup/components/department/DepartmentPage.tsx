@@ -50,8 +50,19 @@ function MemberAvatar({
   );
 }
 
-function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: string; deptRgb: string }) {
-  const [lang, setLang] = useState("EN");
+function VideoCard({ vid, deptId, deptColor, deptRgb, onPlay }: { vid: DeptVideo; deptId: string; deptColor: string; deptRgb: string; onPlay?: () => void }) {
+  const { language } = useLanguage();
+  const [lang, setLang] = useState(language);
+
+  // Get translated description based on language
+  const translatedDesc = (() => {
+    const langKey = lang as "EN" | "JA" | "KO";
+    if (langKey === "EN") return vid.desc;
+    
+    const deptTranslations = videoDescriptionTranslationsByDepartment[langKey]?.[deptId];
+    return deptTranslations?.[vid.title] || vid.desc;
+  })();
+
   return (
     <div
       className="d-vid-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) cursor-pointer"
@@ -79,15 +90,14 @@ function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: str
               key={l.code}
               onClick={(e) => {
                 e.stopPropagation();
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                setLanguage(l.code as any);
+                setLang(l.code as "en" | "ja" | "ko");
               }}
               className={`py-1 px-3 rounded-full text-[0.75rem] font-bold border transition-all duration-200 ${
-                language === l.code
+                lang === l.code
                   ? "text-white border-transparent"
                   : "bg-inset text-muted border-subtle hover:text-content"
               }`}
-              style={language === l.code ? { background: deptColor, borderColor: deptColor } : undefined}
+              style={lang === l.code ? { background: deptColor, borderColor: deptColor } : undefined}
             >
               {l.label}
             </button>
@@ -364,8 +374,8 @@ export default function DepartmentPage({
           {(() => {
             const head = dept.team.filter((m) => m.head);
             const nonHeadTeam = dept.team.filter((m) => !m.head);
-            const positions = {};
-            const members = [];
+            const positions: Record<string, typeof dept.team> = {};
+            const members: typeof dept.team = [];
 
             nonHeadTeam.forEach((member) => {
               if (member.role === "Member") {
@@ -421,7 +431,7 @@ export default function DepartmentPage({
                       Internal Audit
                     </p>
                     <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                      {positions["Internal Audit"].map((member) => (
+                      {positions["Internal Audit"].map((member: typeof dept.team[0]) => (
                         <div
                           key={member.name}
                           className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
@@ -450,7 +460,7 @@ export default function DepartmentPage({
                       Receptionist
                     </p>
                     <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                      {[...(positions["Receptionist I"] || []), ...(positions["Receptionist II"] || [])].map((member) => (
+                      {[...(positions["Receptionist I"] || []), ...(positions["Receptionist II"] || [])].map((member: typeof dept.team[0]) => (
                         <div
                           key={member.name}
                           className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
@@ -479,7 +489,7 @@ export default function DepartmentPage({
                       Security
                     </p>
                     <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                      {positions["Security"].map((member) => (
+                      {positions["Security"].map((member: typeof dept.team[0]) => (
                         <div
                           key={member.name}
                           className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
