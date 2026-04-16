@@ -9,6 +9,40 @@ const LANGS = [
   { code: "KO", label: "한국어" },
 ];
 
+// Reusable Member Avatar Component
+function MemberAvatar({
+  member,
+  deptColor,
+  size = "medium",
+}: {
+  member: { name: string; initials: string; image?: string };
+  deptColor: string;
+  size?: "small" | "medium" | "large";
+}) {
+  const sizeClasses = {
+    small: "w-20 h-20 sm:w-16 sm:h-16 text-xl max-sm:text-base",
+    medium: "w-24 h-24 sm:w-20 sm:h-20 text-2xl max-sm:text-xl",
+    large: "w-32 h-32 text-5xl max-sm:w-24 max-sm:h-24 max-sm:text-3xl",
+  };
+
+  const isRounded = size === "large" ? "rounded-2xl" : "rounded-full";
+
+  return member.image ? (
+    <img
+      src={member.image}
+      alt={member.name}
+      className={`${sizeClasses[size]} ${isRounded} object-cover shrink-0 shadow-md mb-4`}
+    />
+  ) : (
+    <div
+      className={`${sizeClasses[size]} ${isRounded} flex items-center justify-center font-extrabold font-serif shrink-0 text-white mb-4 shadow-md`}
+      style={{ background: deptColor }}
+    >
+      {member.initials}
+    </div>
+  );
+}
+
 function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: string; deptRgb: string }) {
   const [lang, setLang] = useState("EN");
   return (
@@ -83,7 +117,7 @@ export default function DepartmentPage({
               {dept.name}
             </h1>
           </div>
-          <p className="text-[1.25rem] opacity-90 max-w-[700px] ml-[125px] leading-relaxed max-md:ml-0 max-md:mt-6">
+          <p className="text-[1.25rem] opacity-90 leading-relaxed max-md:mt-6 text-justify">
             {dept.desc}
           </p>
         </div>
@@ -161,61 +195,95 @@ export default function DepartmentPage({
             />
             Team Members
           </h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-            {dept.team.map((member) => (
-              <div
-                key={member.name}
-                className={`org-card bg-card border border-subtle rounded-lg p-6 flex items-center gap-5 shadow-(--shadow-xs) ${
-                  member.head
-                    ? "col-span-full border-2 mb-4 scale-[1.01] max-lg:scale-100"
-                    : ""
-                }`}
-                style={
-                  member.head
-                    ? { borderColor: dept.color, background: `rgba(${dept.rgb}, 0.02)` }
-                    : undefined
-                }
+
+          {/* Head Section */}
+          <div className="mb-12">
+            <div className="mb-6 flex items-center gap-4">
+              <h3
+                className="font-serif text-[1.3rem] font-bold"
+                style={{ color: dept.color }}
               >
-                <div
-                  className={`rounded-full flex items-center justify-center font-extrabold font-serif shrink-0 ${
-                    member.head
-                      ? "w-20 h-20 text-[1.8rem] text-white"
-                      : "w-16 h-16 text-[1.4rem] text-muted bg-inset border-2 border-subtle"
-                  }`}
-                  style={
-                    member.head
-                      ? {
-                          background: dept.color,
-                          borderColor: dept.color,
-                        }
-                      : undefined
-                  }
-                >
-                  {member.initials}
-                </div>
-                <div>
-                  <h4
-                    className={`font-serif font-bold flex items-center gap-2.5 text-content ${
-                      member.head ? "text-[1.5rem]" : "text-[1.2rem]"
-                    }`}
+                Head
+              </h3>
+              <div
+                className="flex-1 h-0.5 rounded-full"
+                style={{
+                  background: `linear-gradient(to right, ${dept.color}80, transparent)`,
+                }}
+              />
+            </div>
+            <div className="flex flex-wrap gap-8 max-sm:gap-6">
+              {dept.team
+                .filter((m) => m.head)
+                .map((member) => (
+                  <div key={member.name} className="flex flex-col items-center">
+                    <MemberAvatar
+                      member={member}
+                      deptColor={dept.color}
+                      size="large"
+                    />
+                    <h4 className="font-serif font-bold text-content mt-4 text-center">
+                      {member.name}
+                    </h4>
+                    <p className="text-muted text-[0.95rem] font-medium text-center">
+                      {member.role}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          {/* Positions Sections */}
+          {(() => {
+            const positions = {};
+            dept.team
+              .filter((m) => !m.head)
+              .forEach((member) => {
+                if (!positions[member.role]) {
+                  positions[member.role] = [];
+                }
+                positions[member.role].push(member);
+              });
+
+            return Object.entries(positions).map(([role, members], idx) => (
+              <div key={role} className={idx > 0 ? "mt-12" : ""}>
+                <div className="mb-6 flex items-center gap-4">
+                  <h3
+                    className="font-serif text-[1.3rem] font-bold"
+                    style={{ color: dept.color }}
                   >
-                    {member.name}
-                    {member.head && (
-                      <span
-                        className="text-[0.75rem] py-1 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
-                        style={{ background: dept.color }}
-                      >
-                        Head
-                      </span>
-                    )}
-                  </h4>
-                  <p className="text-[0.95rem] text-muted font-medium">
-                    {member.role}
-                  </p>
+                    {role}
+                  </h3>
+                  <div
+                    className="flex-1 h-0.5 rounded-full"
+                    style={{
+                      background: `linear-gradient(to right, ${dept.color}80, transparent)`,
+                    }}
+                  />
+                </div>
+                <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                  {members.map((member) => (
+                    <div
+                      key={member.name}
+                      className="flex flex-col items-center"
+                    >
+                      <MemberAvatar
+                        member={member}
+                        deptColor={dept.color}
+                        size="medium"
+                      />
+                      <h4 className="font-serif font-bold text-content mt-4 text-center">
+                        {member.name}
+                      </h4>
+                      <p className="text-muted text-[0.95rem] font-medium text-center">
+                        {member.role}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            ));
+          })()}
         </div>
 
         {/* Repositories */}
