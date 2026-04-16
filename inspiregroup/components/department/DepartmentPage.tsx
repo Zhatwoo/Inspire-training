@@ -11,6 +11,40 @@ const LANGS = [
   { code: "ko", label: "한국어" },
 ];
 
+// Reusable Member Avatar Component
+function MemberAvatar({
+  member,
+  deptColor,
+  size = "medium",
+}: {
+  member: { name: string; initials: string; image?: string };
+  deptColor: string;
+  size?: "small" | "medium" | "large";
+}) {
+  const sizeClasses = {
+    small: "w-20 h-20 sm:w-16 sm:h-16 text-xl max-sm:text-base",
+    medium: "w-24 h-24 sm:w-20 sm:h-20 text-2xl max-sm:text-xl",
+    large: "w-32 h-32 text-5xl max-sm:w-24 max-sm:h-24 max-sm:text-3xl",
+  };
+
+  const isRounded = size === "large" ? "rounded-2xl" : "rounded-full";
+
+  return member.image ? (
+    <img
+      src={member.image}
+      alt={member.name}
+      className={`${sizeClasses[size]} ${isRounded} object-cover shrink-0 shadow-md mb-4`}
+    />
+  ) : (
+    <div
+      className={`${sizeClasses[size]} ${isRounded} flex items-center justify-center font-extrabold font-serif shrink-0 text-white mb-4 shadow-md`}
+      style={{ background: deptColor }}
+    >
+      {member.initials}
+    </div>
+  );
+}
+
 function VideoCard({
   vid,
   deptId,
@@ -295,7 +329,7 @@ export default function DepartmentPage({
               {deptName}
             </h1>
           </div>
-          <p className="text-[1.25rem] opacity-90 max-w-[700px] ml-[125px] leading-relaxed max-md:ml-0 max-md:mt-6">
+          <p className="text-[1.25rem] opacity-90 leading-relaxed max-md:mt-6 text-justify">
             {deptDesc}
           </p>
         </div>
@@ -330,49 +364,51 @@ export default function DepartmentPage({
         </div>
 
         {/* Documents */}
-        <div className="mb-20">
-          <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-            <i
-              className="ph-duotone ph-file-pdf text-[2.2rem]"
-              style={{ color: dept.color }}
-            />
-            {t("deptDocuments")}
-          </h2>
-          {dept.docs.map((doc) => (
-            <div
-              key={doc.title}
-              className="doc-row flex items-center gap-5 py-5 px-8 bg-card border border-subtle rounded-lg mb-4 cursor-pointer shadow-(--shadow-xs) max-md:flex-wrap"
-              style={
-                {
-                  "--dept-color": dept.color,
-                  "--dept-rgb": dept.rgb,
-                } as React.CSSProperties
-              }
-            >
+        {dept.docs.length > 0 && (
+          <div className="mb-20">
+            <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+              <i
+                className="ph-duotone ph-file-pdf text-[2.2rem]"
+                style={{ color: dept.color }}
+              />
+              {t("deptDocuments")}
+            </h2>
+            {dept.docs.map((doc) => (
               <div
-                className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
-                style={{
-                  background: `rgba(${dept.rgb}, 0.1)`,
-                  color: dept.color,
-                }}
+                key={doc.title}
+                className="doc-row flex items-center gap-5 py-5 px-8 bg-card border border-subtle rounded-lg mb-4 cursor-pointer shadow-(--shadow-xs) max-md:flex-wrap"
+                style={
+                  {
+                    "--dept-color": dept.color,
+                    "--dept-rgb": dept.rgb,
+                  } as React.CSSProperties
+                }
               >
-                <i className={doc.icon} />
+                <div
+                  className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
+                  style={{
+                    background: `rgba(${dept.rgb}, 0.1)`,
+                    color: dept.color,
+                  }}
+                >
+                  <i className={doc.icon} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-serif text-[1.15rem] font-bold mb-1 text-content">
+                    {doc.title}
+                  </h4>
+                  <p className="text-[0.9rem] text-muted">{doc.desc}</p>
+                </div>
+                <span className="text-[0.8rem] text-muted font-mono shrink-0">
+                  {doc.size} &middot; {doc.type}
+                </span>
+                <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300">
+                  {t("commonView")}
+                </span>
               </div>
-              <div className="flex-1">
-                <h4 className="font-serif text-[1.15rem] font-bold mb-1 text-content">
-                  {doc.title}
-                </h4>
-                <p className="text-[0.9rem] text-muted">{doc.desc}</p>
-              </div>
-              <span className="text-[0.8rem] text-muted font-mono shrink-0">
-                {doc.size} &middot; {doc.type}
-              </span>
-              <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300">
-                {t("commonView")}
-              </span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Team */}
         <div className="mb-20">
@@ -383,61 +419,122 @@ export default function DepartmentPage({
             />
             {t("deptTeamMembers")}
           </h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-            {dept.team.map((member) => (
-              <div
-                key={member.name}
-                className={`org-card bg-card border border-subtle rounded-lg p-6 flex items-center gap-5 shadow-(--shadow-xs) ${
-                  member.head
-                    ? "col-span-full border-2 mb-4 scale-[1.01] max-lg:scale-100"
-                    : ""
-                }`}
-                style={
-                  member.head
-                    ? { borderColor: dept.color, background: `rgba(${dept.rgb}, 0.02)` }
-                    : undefined
-                }
-              >
-                <div
-                  className={`rounded-full flex items-center justify-center font-extrabold font-serif shrink-0 ${
-                    member.head
-                      ? "w-20 h-20 text-[1.8rem] text-white"
-                      : "w-16 h-16 text-[1.4rem] text-muted bg-inset border-2 border-subtle"
-                  }`}
-                  style={
-                    member.head
-                      ? {
-                          background: dept.color,
-                          borderColor: dept.color,
-                        }
-                      : undefined
-                  }
-                >
-                  {member.initials}
-                </div>
-                <div>
-                  <h4
-                    className={`font-serif font-bold flex items-center gap-2.5 text-content ${
-                      member.head ? "text-[1.5rem]" : "text-[1.2rem]"
-                    }`}
+          
+          {/* Head of Department */}
+          <div className="mb-16">
+            {dept.team
+              .filter((member) => member.head)
+              .map((member) => (
+                <div key={member.name}>
+                  <h3 className="font-serif text-base font-bold uppercase tracking-wider text-muted mb-6" style={{ color: dept.color }}>
+                    Head
+                  </h3>
+                  <div
+                    className="org-card-head bg-card border-2 rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-8 shadow-lg max-sm:p-6 max-sm:gap-6 mb-8"
+                    style={{ borderColor: dept.color, background: `rgba(${dept.rgb}, 0.03)` }}
                   >
-                    {member.name}
-                    {member.head && (
-                      <span
-                        className="text-[0.75rem] py-1 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
-                        style={{ background: dept.color }}
-                      >
-                        {t("deptHead")}
-                      </span>
-                    )}
-                  </h4>
-                  <p className="text-[0.95rem] text-muted font-medium">
-                    {member.role}
-                  </p>
+                    <MemberAvatar member={member} deptColor={dept.color} size="large" />
+                    <div className="flex-1 text-center sm:text-left">
+                      <div className="flex items-center gap-3 justify-center sm:justify-start mb-2 flex-wrap">
+                        <h4 className="font-serif font-bold text-2xl text-content max-sm:text-xl">
+                          {member.name}
+                        </h4>
+                        <span
+                          className="text-sm py-2 px-4 rounded-full font-extrabold uppercase tracking-wider font-sans text-white whitespace-nowrap"
+                          style={{ background: dept.color }}
+                        >
+                          {t("deptHead")}
+                        </span>
+                      </div>
+                      <p className="text-lg text-muted font-medium max-sm:text-base">
+                        {member.role}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-subtle to-transparent mb-16" />
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
+
+          {/* Positions/Roles (excluding Head and Members) */}
+          {dept.team.some((m) => !m.head && m.role !== "Member") && (
+            <div className="mb-16">
+              {Array.from(
+                new Map(
+                  dept.team
+                    .filter((m) => !m.head && m.role !== "Member")
+                    .map((m) => {
+                      // Group Receptionist roles together
+                      const groupKey = m.role.startsWith("Receptionist") ? "Receptionist" : m.role;
+                      return [groupKey, m];
+                    })
+                ).entries()
+              ).map(([role, member]) => (
+                <div key={`${role}-section`}>
+                  <h3 className="font-serif text-base font-bold uppercase tracking-wider text-muted mb-6" style={{ color: dept.color }}>
+                    {role}
+                  </h3>
+                  <div className="flex flex-wrap gap-6 mb-8 max-sm:gap-4">
+                    {dept.team
+                      .filter((m) => {
+                        const groupKey = m.role.startsWith("Receptionist") ? "Receptionist" : m.role;
+                        return groupKey === role;
+                      })
+                      .map((m) => (
+                        <div
+                          key={m.name}
+                          className="org-card bg-card border border-subtle rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 max-sm:p-5 flex-1 min-w-[200px]"
+                          style={{
+                            background: `rgba(${dept.rgb}, 0.02)`,
+                            borderColor: `rgba(${dept.rgb}, 0.3)`,
+                          }}
+                        >
+                          <MemberAvatar member={m} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-lg text-content mb-1 max-sm:text-base line-clamp-2">
+                            {m.name}
+                          </h4>
+                          <p className="text-sm text-muted font-medium max-sm:text-xs line-clamp-2">
+                            {m.role}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-subtle to-transparent mb-16" />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Members (without specific role) */}
+          {dept.team.some((m) => m.role === "Member") && (
+            <div>
+              <h3 className="font-serif text-base font-bold uppercase tracking-wider text-muted mb-6" style={{ color: dept.color }}>
+                Members
+              </h3>
+              <div className="flex flex-wrap gap-6 max-sm:gap-4">
+                {dept.team
+                  .filter((m) => m.role === "Member")
+                  .map((member) => (
+                    <div
+                      key={member.name}
+                      className="org-card bg-card border border-subtle rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 max-sm:p-5 flex-1 min-w-[200px]"
+                      style={{
+                        background: `rgba(${dept.rgb}, 0.02)`,
+                        borderColor: `rgba(${dept.rgb}, 0.3)`,
+                      }}
+                    >
+                      <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                      <h4 className="font-serif font-bold text-lg text-content mb-1 max-sm:text-base line-clamp-2">
+                        {member.name}
+                      </h4>
+                      <p className="text-sm text-muted font-medium max-sm:text-xs line-clamp-2">
+                        {member.role}
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Repositories */}

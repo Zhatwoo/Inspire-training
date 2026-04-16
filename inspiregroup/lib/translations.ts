@@ -225,7 +225,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
     },
     admin: {
       name: "Admin Department",
-      desc: "Facilities management, logistics, procurement, and office operations.",
+      desc: "The Admin Department is essential to the overall success of a company because it serves as the foundation of daily operations. It ensures that all departments have the structure, resources, and support they need to function effectively.",
       tags: ["Facilities", "Logistics", "Procurement", "Operations"],
     },
     it: {

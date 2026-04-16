@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS events (
 INSERT INTO departments (name, slug, description, icon, color) VALUES
 ('Customer', 'customer', 'Customer service, support, and relationship management', '🎧', '#06b6d4'),
 ('Corporate', 'corporate', 'Corporate governance, strategy, stakeholder relations, and compliance', '💼', '#8b5cf6'),
-('Admin', 'admin', 'Facilities management, logistics, procurement, and office operations', '🏢', '#10b981'),
+('Admin', 'admin', 'The Admin Department is essential to the overall success of a company because it serves as the foundation of daily operations. It ensures that all departments have the structure, resources, and support they need to function effectively.', '🏢', '#10b981'),
 ('IT', 'it', 'Infrastructure, development, and tech support for the entire organization', '💻', '#2563eb'),
 ('Solution', 'solution', 'Business solutions, consulting, and technology-driven innovation services', '💡', '#0ea5e9'),
 ('Iwallet', 'iwallet', 'Digital wallet operations, payment processing, and financial product support', '👛', '#f97316'),
