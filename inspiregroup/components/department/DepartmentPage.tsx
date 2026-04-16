@@ -200,32 +200,42 @@ export default function DepartmentPage({
           <div className="mb-12">
             <div className="mb-6 flex items-center gap-4">
               <h3
-                className="font-serif text-[1.3rem] font-bold"
+                className="font-serif text-[1.2rem] font-bold"
                 style={{ color: dept.color }}
               >
                 Head
               </h3>
               <div
-                className="flex-1 h-0.5 rounded-full"
+                className="flex-1 h-1 rounded-full"
                 style={{
-                  background: `linear-gradient(to right, ${dept.color}80, transparent)`,
+                  background: `linear-gradient(to right, ${dept.color}ff, ${dept.color}00)`,
                 }}
               />
             </div>
-            <div className="flex flex-wrap gap-8 max-sm:gap-6">
+            <div className="flex flex-wrap gap-6 max-sm:gap-4">
               {dept.team
                 .filter((m) => m.head)
                 .map((member) => (
-                  <div key={member.name} className="flex flex-col items-center">
+                  <div
+                    key={member.name}
+                    className="flex flex-col items-center p-8 max-sm:p-5 rounded-2xl border-2 transition-all duration-300"
+                    style={{
+                      borderColor: dept.color,
+                      background: `rgba(${dept.rgb}, 0.08)`,
+                    }}
+                  >
                     <MemberAvatar
                       member={member}
                       deptColor={dept.color}
                       size="large"
                     />
-                    <h4 className="font-serif font-bold text-content mt-4 text-center">
+                    <h4 className="font-serif font-bold text-content text-center text-[1.1rem] mt-3">
                       {member.name}
                     </h4>
-                    <p className="text-muted text-[0.95rem] font-medium text-center">
+                    <p
+                      className="text-[0.85rem] font-semibold text-center mt-1"
+                      style={{ color: dept.color }}
+                    >
                       {member.role}
                     </p>
                   </div>
@@ -235,54 +245,118 @@ export default function DepartmentPage({
 
           {/* Positions Sections */}
           {(() => {
+            // Separate head from others
+            const nonHeadTeam = dept.team.filter((m) => !m.head);
+            
+            // Separate positions from members
             const positions = {};
-            dept.team
-              .filter((m) => !m.head)
-              .forEach((member) => {
+            const members = [];
+
+            nonHeadTeam.forEach((member) => {
+              if (member.role === "Member") {
+                members.push(member);
+              } else {
                 if (!positions[member.role]) {
                   positions[member.role] = [];
                 }
                 positions[member.role].push(member);
-              });
+              }
+            });
 
-            return Object.entries(positions).map(([role, members], idx) => (
-              <div key={role} className={idx > 0 ? "mt-12" : ""}>
-                <div className="mb-6 flex items-center gap-4">
-                  <h3
-                    className="font-serif text-[1.3rem] font-bold"
-                    style={{ color: dept.color }}
-                  >
-                    {role}
-                  </h3>
-                  <div
-                    className="flex-1 h-0.5 rounded-full"
-                    style={{
-                      background: `linear-gradient(to right, ${dept.color}80, transparent)`,
-                    }}
-                  />
-                </div>
-                <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                  {members.map((member) => (
-                    <div
-                      key={member.name}
-                      className="flex flex-col items-center"
-                    >
-                      <MemberAvatar
-                        member={member}
-                        deptColor={dept.color}
-                        size="medium"
+            // Define position order
+            const positionOrder = ["Internal Audit", "Receptionist I", "Receptionist II", "Security"];
+            const sortedPositions = positionOrder.filter((pos) => positions[pos]);
+
+            return (
+              <>
+                {/* Position Sections */}
+                {sortedPositions.map((role, idx) => (
+                  <div key={role} className={idx > 0 ? "mt-12" : ""}>
+                    <div className="mb-6 flex items-center gap-4">
+                      <h3
+                        className="font-serif text-[1.2rem] font-bold"
+                        style={{ color: dept.color }}
+                      >
+                        {role}
+                      </h3>
+                      <div
+                        className="flex-1 h-1 rounded-full"
+                        style={{
+                          background: `linear-gradient(to right, ${dept.color}ff, ${dept.color}00)`,
+                        }}
                       />
-                      <h4 className="font-serif font-bold text-content mt-4 text-center">
-                        {member.name}
-                      </h4>
-                      <p className="text-muted text-[0.95rem] font-medium text-center">
-                        {member.role}
-                      </p>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ));
+                    <div className="flex flex-wrap gap-6 max-sm:gap-4">
+                      {positions[role].map((member) => (
+                        <div
+                          key={member.name}
+                          className="flex flex-col items-center p-6 max-sm:p-4 rounded-xl border transition-all duration-300"
+                          style={{
+                            borderColor: `${dept.color}50`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar
+                            member={member}
+                            deptColor={dept.color}
+                            size="medium"
+                          />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-3">
+                            {member.name}
+                          </h4>
+                          <p
+                            className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-1"
+                            style={{ color: dept.color }}
+                          >
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Members Section */}
+                {members.length > 0 && (
+                  <div className="mt-12">
+                    <div className="mb-6 flex items-center gap-4">
+                      <h3
+                        className="font-serif text-[1.2rem] font-bold"
+                        style={{ color: dept.color }}
+                      >
+                        Members
+                      </h3>
+                      <div
+                        className="flex-1 h-1 rounded-full"
+                        style={{
+                          background: `linear-gradient(to right, ${dept.color}ff, ${dept.color}00)`,
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-wrap gap-6 max-sm:gap-4">
+                      {members.map((member) => (
+                        <div
+                          key={member.name}
+                          className="flex flex-col items-center text-center"
+                        >
+                          <MemberAvatar
+                            member={member}
+                            deptColor={dept.color}
+                            size="medium"
+                          />
+                          <h4 className="font-serif font-bold text-content max-sm:text-[0.95rem] mt-3">
+                            {member.name}
+                          </h4>
+                          <p className="text-muted text-[0.8rem] font-medium max-sm:text-[0.75rem] mt-1">
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            );
           })()}
         </div>
 

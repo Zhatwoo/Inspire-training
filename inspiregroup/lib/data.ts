@@ -240,12 +240,12 @@ export const departmentData: DepartmentData[] = [
     team: [
       { name: "Gerlie Fabian De Asis", role: "Head", initials: "GF", head: true, image: "/images/members/gerlie.jpg" },
       { name: "Kristel Gabriel", role: "Internal Audit", initials: "KG", image: "/images/members/kristel.webp" },
-      { name: "Roxanne Rebadavia", role: "Receptionist I", initials: "RR" },
-      { name: "Ericka Mae Vejiga", role: "Receptionist II", initials: "EV"},
-      { name: "Nathaniel Mustacho", role: "Security", initials: "NM"},
-      { name: "Rosalinda Gravador", role: "Member", initials: "RG" },
-      { name: "Zylela Gojar", role: "Member", initials: "ZG" },
-      { name: "Prince Kevin Mark Velasquez", role: "Member", initials: "PV" },
+      { name: "Roxanne Rebadavia", role: "Receptionist I", initials: "RR", image: "/images/members/roxanne.jpg" },
+      { name: "Ericka Mae Vejiga", role: "Receptionist II", initials: "EV", image: "/images/members/ericka.jpg" },
+      { name: "Nathaniel Mustacho", role: "Security", initials: "NM", image: "/images/members/nathaniel.jpg" },
+      { name: "Rosalinda Gravador", role: "Member", initials: "RG", image: "/images/members/rosalinda.jpg" },
+      { name: "Zylela Gojar", role: "Member", initials: "ZG", image: "/images/members/zylela.jpg" },
+      { name: "Prince Kevin Mark Velasquez", role: "Member", initials: "PV", image: "/images/members/prince.jpg" },
     ],
   },
   {
