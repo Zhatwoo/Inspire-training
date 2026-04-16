@@ -46,6 +46,7 @@ export interface DeptVideo {
   title: string;
   desc: string;
   duration: string;
+  url?: string;
 }
 
 export interface DeptDoc {
@@ -61,6 +62,7 @@ export interface DeptTeamMember {
   role: string;
   initials: string;
   head?: boolean;
+  image?: string;
 }
 
 export interface DeptRepo {
@@ -108,6 +110,28 @@ export interface AppModalProps {
 
 export interface EventModalProps {
   event: EventData | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface PhilippineLawDetail {
+  title: string;
+  purpose: string;
+  relevance: string[];
+}
+
+export interface PhilippineLawData {
+  id: string;
+  num: string;
+  name: string;
+  year: string;
+  icon: string;
+  color: string;
+  details: PhilippineLawDetail;
+}
+
+export interface PhilippineLawModalProps {
+  law: PhilippineLawData | null;
   isOpen: boolean;
   onClose: () => void;
 }
