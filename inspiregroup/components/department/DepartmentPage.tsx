@@ -161,70 +161,29 @@ export default function DepartmentPage({
           {(() => {
             const head = dept.team.filter((m) => m.head);
             const nonHeadTeam = dept.team.filter((m) => !m.head);
-            const positions = {};
-            const members = [];
+            const roleGroups: Record<string, typeof nonHeadTeam> = {};
 
             nonHeadTeam.forEach((member) => {
-              if (member.role === "Member") {
-                members.push(member);
-              } else {
-                if (!positions[member.role]) positions[member.role] = [];
-                positions[member.role].push(member);
-              }
+              if (!roleGroups[member.role]) roleGroups[member.role] = [];
+              roleGroups[member.role].push(member);
             });
 
             return (
               <>
                 {/* Head */}
-                {head.map((member) => (
-                  <div key={member.name}>
+                {head.length > 0 && (
+                  <div className="mb-16">
                     <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
                       Head
                     </p>
-                    <div
-                      className="flex items-center gap-8 max-sm:gap-6 p-8 max-sm:p-5 rounded-2xl border-2 mb-16 transition duration-300 hover:shadow-md"
-                      style={{
-                        borderColor: dept.color,
-                        background: `rgba(${dept.rgb}, 0.08)`,
-                      }}
-                    >
-                      <div className="shrink-0 w-32 h-32 max-sm:w-24 max-sm:h-24">
-                        <MemberAvatar member={member} deptColor={dept.color} size="large" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h4 className="font-serif font-bold text-content text-[1.3rem] max-sm:text-[1.1rem]">
-                            {member.name}
-                          </h4>
-                          <span
-                            className="text-[0.65rem] py-1.5 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
-                            style={{ background: dept.color }}
-                          >
-                            Head
-                          </span>
-                        </div>
-                        <p className="text-[0.95rem] font-semibold" style={{ color: dept.color }}>
-                          {member.role}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Internal Audit */}
-                {positions["Internal Audit"] && (
-                  <div className="mb-16">
-                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
-                      Internal Audit
-                    </p>
                     <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                      {positions["Internal Audit"].map((member) => (
+                      {head.map((member) => (
                         <div
                           key={member.name}
-                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border-2 transition duration-300 hover:shadow-md"
                           style={{
-                            borderColor: `${dept.color}40`,
-                            background: `rgba(${dept.rgb}, 0.05)`,
+                            borderColor: dept.color,
+                            background: `rgba(${dept.rgb}, 0.08)`,
                           }}
                         >
                           <MemberAvatar member={member} deptColor={dept.color} size="medium" />
@@ -240,69 +199,10 @@ export default function DepartmentPage({
                   </div>
                 )}
 
-                {/* Receptionist */}
-                {(positions["Receptionist I"] || positions["Receptionist II"]) && (
-                  <div className="mb-16">
+                {Object.entries(roleGroups).map(([role, members]) => (
+                  <div key={role} className="mb-16">
                     <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
-                      Receptionist
-                    </p>
-                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                      {[...(positions["Receptionist I"] || []), ...(positions["Receptionist II"] || [])].map((member) => (
-                        <div
-                          key={member.name}
-                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
-                          style={{
-                            borderColor: `${dept.color}40`,
-                            background: `rgba(${dept.rgb}, 0.05)`,
-                          }}
-                        >
-                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
-                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
-                            {member.name}
-                          </h4>
-                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
-                            {member.role}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Security */}
-                {positions["Security"] && (
-                  <div className="mb-16">
-                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
-                      Security
-                    </p>
-                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
-                      {positions["Security"].map((member) => (
-                        <div
-                          key={member.name}
-                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
-                          style={{
-                            borderColor: `${dept.color}40`,
-                            background: `rgba(${dept.rgb}, 0.05)`,
-                          }}
-                        >
-                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
-                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
-                            {member.name}
-                          </h4>
-                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
-                            {member.role}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Members */}
-                {members.length > 0 && (
-                  <div>
-                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
-                      Members
+                      {role === "Member" ? "Members" : role}
                     </p>
                     <div className="flex flex-wrap gap-8 max-sm:gap-6">
                       {members.map((member) => (
@@ -318,14 +218,14 @@ export default function DepartmentPage({
                           <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
                             {member.name}
                           </h4>
-                          <p className="text-muted text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2">
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
                             {member.role}
                           </p>
                         </div>
                       ))}
                     </div>
                   </div>
-                )}
+                ))}
               </>
             );
           })()}
