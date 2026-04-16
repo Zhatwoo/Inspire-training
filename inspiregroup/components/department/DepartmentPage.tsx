@@ -196,7 +196,7 @@ export default function DepartmentPage({
             Team Members
           </h2>
 
-          {/* Head Section */}
+          {/* Head Section - Horizontal */}
           <div className="mb-12">
             <div className="mb-6 flex items-center gap-4">
               <h3
@@ -212,43 +212,48 @@ export default function DepartmentPage({
                 }}
               />
             </div>
-            <div className="flex flex-wrap gap-6 max-sm:gap-4">
-              {dept.team
-                .filter((m) => m.head)
-                .map((member) => (
-                  <div
-                    key={member.name}
-                    className="flex flex-col items-center p-8 max-sm:p-5 rounded-2xl border-2 transition-all duration-300"
-                    style={{
-                      borderColor: dept.color,
-                      background: `rgba(${dept.rgb}, 0.08)`,
-                    }}
-                  >
+            {dept.team
+              .filter((m) => m.head)
+              .map((member) => (
+                <div
+                  key={member.name}
+                  className="flex items-center gap-8 max-sm:gap-6 p-8 max-sm:p-6 rounded-2xl border-2 transition-all duration-300"
+                  style={{
+                    borderColor: dept.color,
+                    background: `rgba(${dept.rgb}, 0.08)`,
+                  }}
+                >
+                  <div className="shrink-0 w-32 h-32 max-sm:w-24 max-sm:h-24">
                     <MemberAvatar
                       member={member}
                       deptColor={dept.color}
                       size="large"
                     />
-                    <h4 className="font-serif font-bold text-content text-center text-[1.1rem] mt-3">
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-serif font-bold text-content text-[1.3rem] max-sm:text-[1.1rem] flex items-center gap-3 mb-2">
                       {member.name}
+                      <span
+                        className="text-[0.65rem] py-1.5 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
+                        style={{ background: dept.color }}
+                      >
+                        Head
+                      </span>
                     </h4>
                     <p
-                      className="text-[0.85rem] font-semibold text-center mt-1"
+                      className="text-[0.95rem] font-semibold"
                       style={{ color: dept.color }}
                     >
                       {member.role}
                     </p>
                   </div>
-                ))}
-            </div>
+                </div>
+              ))}
           </div>
 
-          {/* Positions Sections */}
+          {/* Positions & Members Sections */}
           {(() => {
-            // Separate head from others
             const nonHeadTeam = dept.team.filter((m) => !m.head);
-            
-            // Separate positions from members
             const positions = {};
             const members = [];
 
@@ -263,7 +268,6 @@ export default function DepartmentPage({
               }
             });
 
-            // Define position order
             const positionOrder = ["Internal Audit", "Receptionist I", "Receptionist II", "Security"];
             const sortedPositions = positionOrder.filter((pos) => positions[pos]);
 
@@ -290,7 +294,7 @@ export default function DepartmentPage({
                       {positions[role].map((member) => (
                         <div
                           key={member.name}
-                          className="flex flex-col items-center p-6 max-sm:p-4 rounded-xl border transition-all duration-300"
+                          className="flex-1 min-w-48 flex flex-col items-center p-6 max-sm:p-4 rounded-xl border transition-all duration-300"
                           style={{
                             borderColor: `${dept.color}50`,
                             background: `rgba(${dept.rgb}, 0.05)`,
@@ -301,7 +305,7 @@ export default function DepartmentPage({
                             deptColor={dept.color}
                             size="medium"
                           />
-                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-3">
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-3 w-full">
                             {member.name}
                           </h4>
                           <p
@@ -333,7 +337,7 @@ export default function DepartmentPage({
                         }}
                       />
                     </div>
-                    <div className="flex flex-wrap gap-6 max-sm:gap-4">
+                    <div className="flex flex-wrap gap-6 max-sm:gap-4 justify-start">
                       {members.map((member) => (
                         <div
                           key={member.name}
