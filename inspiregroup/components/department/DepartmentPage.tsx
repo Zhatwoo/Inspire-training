@@ -21,6 +21,8 @@ function MemberAvatar({
   deptColor: string;
   size?: "small" | "medium" | "large";
 }) {
+  const [imageError, setImageError] = useState(false);
+
   const sizeClasses = {
     small: "w-20 h-20 sm:w-16 sm:h-16 text-xl max-sm:text-base",
     medium: "w-24 h-24 sm:w-20 sm:h-20 text-2xl max-sm:text-xl",
@@ -29,43 +31,27 @@ function MemberAvatar({
 
   const isRounded = size === "large" ? "rounded-2xl" : "rounded-full";
 
-  return member.image ? (
-    <img
-      src={member.image}
-      alt={member.name}
-      className={`${sizeClasses[size]} ${isRounded} object-cover shrink-0 shadow-md mb-4`}
-    />
-  ) : (
+  const showInitials = !member.image || imageError;
+
+  return showInitials ? (
     <div
       className={`${sizeClasses[size]} ${isRounded} flex items-center justify-center font-extrabold font-serif shrink-0 text-white mb-4 shadow-md`}
       style={{ background: deptColor }}
     >
       {member.initials}
     </div>
+  ) : (
+    <img
+      src={member.image}
+      alt={member.name}
+      onError={() => setImageError(true)}
+      className={`${sizeClasses[size]} ${isRounded} object-cover shrink-0 shadow-md mb-4`}
+    />
   );
 }
 
-function VideoCard({
-  vid,
-  deptId,
-  deptColor,
-  deptRgb,
-  onPlay,
-}: {
-  vid: DeptVideo;
-  deptId: string;
-  deptColor: string;
-  deptRgb: string;
-  onPlay?: () => void;
-}) {
-  const { language, setLanguage } = useLanguage();
-  const langUpper = language.toUpperCase() as "EN" | "JA" | "KO";
-  const nonEnglishLang = language === "ja" ? "JA" : "KO";
-  const translatedByDept = videoDescriptionTranslationsByDepartment[langUpper]?.[deptId]?.[vid.title];
-  const translatedDesc =
-    language === "en"
-      ? vid.desc
-      : translatedByDept ?? videoDescriptionTranslations[nonEnglishLang]?.[vid.desc] ?? vid.desc;
+function VideoCard({ vid, deptColor, deptRgb }: { vid: DeptVideo; deptColor: string; deptRgb: string }) {
+  const [lang, setLang] = useState("EN");
   return (
     <div
       className="d-vid-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) cursor-pointer"
@@ -330,7 +316,7 @@ export default function DepartmentPage({
             </h1>
           </div>
           <p className="text-[1.25rem] opacity-90 leading-relaxed max-md:mt-6 text-justify">
-            {deptDesc}
+            {dept.desc}
           </p>
         </div>
       </div>
@@ -363,178 +349,189 @@ export default function DepartmentPage({
           </div>
         </div>
 
-        {/* Documents */}
-        {dept.docs.length > 0 && (
-          <div className="mb-20">
-            <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-              <i
-                className="ph-duotone ph-file-pdf text-[2.2rem]"
-                style={{ color: dept.color }}
-              />
-              {t("deptDocuments")}
-            </h2>
-            {dept.docs.map((doc) => (
-              <div
-                key={doc.title}
-                className="doc-row flex items-center gap-5 py-5 px-8 bg-card border border-subtle rounded-lg mb-4 cursor-pointer shadow-(--shadow-xs) max-md:flex-wrap"
-                style={
-                  {
-                    "--dept-color": dept.color,
-                    "--dept-rgb": dept.rgb,
-                  } as React.CSSProperties
-                }
-              >
-                <div
-                  className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
-                  style={{
-                    background: `rgba(${dept.rgb}, 0.1)`,
-                    color: dept.color,
-                  }}
-                >
-                  <i className={doc.icon} />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-serif text-[1.15rem] font-bold mb-1 text-content">
-                    {doc.title}
-                  </h4>
-                  <p className="text-[0.9rem] text-muted">{doc.desc}</p>
-                </div>
-                <span className="text-[0.8rem] text-muted font-mono shrink-0">
-                  {doc.size} &middot; {doc.type}
-                </span>
-                <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300">
-                  {t("commonView")}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
+
 
         {/* Team */}
         <div className="mb-20">
-          <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+          <h2 className="font-serif text-[1.8rem] font-bold mb-16 flex items-center gap-4 text-content">
             <i
               className="ph-duotone ph-users text-[2.2rem]"
               style={{ color: dept.color }}
             />
             {t("deptTeamMembers")}
           </h2>
-          
-          {/* Head of Department */}
-          <div className="mb-16">
-            {dept.team
-              .filter((member) => member.head)
-              .map((member) => (
-                <div key={member.name}>
-                  <h3 className="font-serif text-base font-bold uppercase tracking-wider text-muted mb-6" style={{ color: dept.color }}>
-                    Head
-                  </h3>
-                  <div
-                    className="org-card-head bg-card border-2 rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-8 shadow-lg max-sm:p-6 max-sm:gap-6 mb-8"
-                    style={{ borderColor: dept.color, background: `rgba(${dept.rgb}, 0.03)` }}
-                  >
-                    <MemberAvatar member={member} deptColor={dept.color} size="large" />
-                    <div className="flex-1 text-center sm:text-left">
-                      <div className="flex items-center gap-3 justify-center sm:justify-start mb-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-2xl text-content max-sm:text-xl">
-                          {member.name}
-                        </h4>
-                        <span
-                          className="text-sm py-2 px-4 rounded-full font-extrabold uppercase tracking-wider font-sans text-white whitespace-nowrap"
-                          style={{ background: dept.color }}
-                        >
-                          {t("deptHead")}
-                        </span>
+
+          {(() => {
+            const head = dept.team.filter((m) => m.head);
+            const nonHeadTeam = dept.team.filter((m) => !m.head);
+            const positions = {};
+            const members = [];
+
+            nonHeadTeam.forEach((member) => {
+              if (member.role === "Member") {
+                members.push(member);
+              } else {
+                if (!positions[member.role]) positions[member.role] = [];
+                positions[member.role].push(member);
+              }
+            });
+
+            return (
+              <>
+                {/* Head */}
+                {head.map((member) => (
+                  <div key={member.name}>
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Head
+                    </p>
+                    <div
+                      className="flex items-center gap-8 max-sm:gap-6 p-8 max-sm:p-5 rounded-2xl border-2 mb-16 transition duration-300 hover:shadow-md"
+                      style={{
+                        borderColor: dept.color,
+                        background: `rgba(${dept.rgb}, 0.08)`,
+                      }}
+                    >
+                      <div className="shrink-0 w-32 h-32 max-sm:w-24 max-sm:h-24">
+                        <MemberAvatar member={member} deptColor={dept.color} size="large" />
                       </div>
-                      <p className="text-lg text-muted font-medium max-sm:text-base">
-                        {member.role}
-                      </p>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h4 className="font-serif font-bold text-content text-[1.3rem] max-sm:text-[1.1rem]">
+                            {member.name}
+                          </h4>
+                          <span
+                            className="text-[0.65rem] py-1.5 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
+                            style={{ background: dept.color }}
+                          >
+                            Head
+                          </span>
+                        </div>
+                        <p className="text-[0.95rem] font-semibold" style={{ color: dept.color }}>
+                          {member.role}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div className="h-px bg-gradient-to-r from-transparent via-subtle to-transparent mb-16" />
-                </div>
-              ))}
-          </div>
+                ))}
 
-          {/* Positions/Roles (excluding Head and Members) */}
-          {dept.team.some((m) => !m.head && m.role !== "Member") && (
-            <div className="mb-16">
-              {Array.from(
-                new Map(
-                  dept.team
-                    .filter((m) => !m.head && m.role !== "Member")
-                    .map((m) => {
-                      // Group Receptionist roles together
-                      const groupKey = m.role.startsWith("Receptionist") ? "Receptionist" : m.role;
-                      return [groupKey, m];
-                    })
-                ).entries()
-              ).map(([role, member]) => (
-                <div key={`${role}-section`}>
-                  <h3 className="font-serif text-base font-bold uppercase tracking-wider text-muted mb-6" style={{ color: dept.color }}>
-                    {role}
-                  </h3>
-                  <div className="flex flex-wrap gap-6 mb-8 max-sm:gap-4">
-                    {dept.team
-                      .filter((m) => {
-                        const groupKey = m.role.startsWith("Receptionist") ? "Receptionist" : m.role;
-                        return groupKey === role;
-                      })
-                      .map((m) => (
+                {/* Internal Audit */}
+                {positions["Internal Audit"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Internal Audit
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Internal Audit"].map((member) => (
                         <div
-                          key={m.name}
-                          className="org-card bg-card border border-subtle rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 max-sm:p-5 flex-1 min-w-[200px]"
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
                           style={{
-                            background: `rgba(${dept.rgb}, 0.02)`,
-                            borderColor: `rgba(${dept.rgb}, 0.3)`,
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
                           }}
                         >
-                          <MemberAvatar member={m} deptColor={dept.color} size="medium" />
-                          <h4 className="font-serif font-bold text-lg text-content mb-1 max-sm:text-base line-clamp-2">
-                            {m.name}
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
                           </h4>
-                          <p className="text-sm text-muted font-medium max-sm:text-xs line-clamp-2">
-                            {m.role}
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
                           </p>
                         </div>
                       ))}
-                  </div>
-                  <div className="h-px bg-gradient-to-r from-transparent via-subtle to-transparent mb-16" />
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Members (without specific role) */}
-          {dept.team.some((m) => m.role === "Member") && (
-            <div>
-              <h3 className="font-serif text-base font-bold uppercase tracking-wider text-muted mb-6" style={{ color: dept.color }}>
-                Members
-              </h3>
-              <div className="flex flex-wrap gap-6 max-sm:gap-4">
-                {dept.team
-                  .filter((m) => m.role === "Member")
-                  .map((member) => (
-                    <div
-                      key={member.name}
-                      className="org-card bg-card border border-subtle rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 max-sm:p-5 flex-1 min-w-[200px]"
-                      style={{
-                        background: `rgba(${dept.rgb}, 0.02)`,
-                        borderColor: `rgba(${dept.rgb}, 0.3)`,
-                      }}
-                    >
-                      <MemberAvatar member={member} deptColor={dept.color} size="medium" />
-                      <h4 className="font-serif font-bold text-lg text-content mb-1 max-sm:text-base line-clamp-2">
-                        {member.name}
-                      </h4>
-                      <p className="text-sm text-muted font-medium max-sm:text-xs line-clamp-2">
-                        {member.role}
-                      </p>
                     </div>
-                  ))}
-              </div>
-            </div>
-          )}
+                  </div>
+                )}
+
+                {/* Receptionist */}
+                {(positions["Receptionist I"] || positions["Receptionist II"]) && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Receptionist
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {[...(positions["Receptionist I"] || []), ...(positions["Receptionist II"] || [])].map((member) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Security */}
+                {positions["Security"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Security
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Security"].map((member) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Members */}
+                {members.length > 0 && (
+                  <div>
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Members
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {members.map((member) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-muted text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2">
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
 
         {/* Repositories */}

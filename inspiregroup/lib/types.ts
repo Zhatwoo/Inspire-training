@@ -114,6 +114,28 @@ export interface EventModalProps {
   onClose: () => void;
 }
 
+export interface PhilippineLawDetail {
+  title: string;
+  purpose: string;
+  relevance: string[];
+}
+
+export interface PhilippineLawData {
+  id: string;
+  num: string;
+  name: string;
+  year: string;
+  icon: string;
+  color: string;
+  details: PhilippineLawDetail;
+}
+
+export interface PhilippineLawModalProps {
+  law: PhilippineLawData | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 export interface DepartmentPageProps {
   department: DepartmentData;
   onBack: () => void;
