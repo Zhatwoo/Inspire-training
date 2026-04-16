@@ -122,7 +122,10 @@ export default function AnnouncementsSection() {
               style={{ width: "clamp(280px, 80vw, 420px)" }}
             >
               {/* Poster */}
-              <div className="cinema-poster relative h-48 sm:h-56 w-full flex items-center justify-center overflow-hidden text-white/90 text-6xl sm:text-7xl">
+              <div 
+                className="cinema-poster relative h-48 sm:h-56 w-full flex items-center justify-center overflow-hidden text-white/90 text-6xl sm:text-7xl"
+                style={{ background: event.posterGradient }}
+              >
                 <i className={event.icon} />
               </div>
 
