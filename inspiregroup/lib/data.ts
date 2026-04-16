@@ -121,7 +121,7 @@ export const eventData: EventData[] = [
       "MS Valentines 2026 is a special celebration bringing together all departments to recognize love, friendship, and camaraderie in the workplace. Join us for exciting activities, team bonding, and heartfelt moments with colleagues. This all-department event promises fun, laughter, and strengthened relationships across Inspire Group.",
     date: "February 14, 2026",
     location: "All Departments",
-    posterGradient: "linear-gradient(135deg, #dc2626, #7f1d1d)",
+    posterGradient: "linear-gradient(135deg, #ef4444, #b91c1c)",
   },
   {
     id: "event2",
@@ -129,14 +129,14 @@ export const eventData: EventData[] = [
     tagIcon: "ph-bold ph-star",
     tagLabel: "Event",
     slideClass: "cs-2",
-    title: "Girl Power Empowerment",
+    title: "Girl Power Empowerment Month",
     shortDesc:
       "A celebration dedicated to empowering and recognizing the women of Inspire Group.",
     fullDesc:
       "The Girl Power Empowerment event celebrates the strength, achievements, and contributions of all women across Inspire Group. Featuring inspiring talks, networking sessions, and recognition ceremonies for outstanding female leaders and team members. This all-department celebration aims to foster inclusivity and highlight the vital role of women in our organization.",
     date: "March 8, 2026",
     location: "All Departments",
-    posterGradient: "linear-gradient(135deg, #ec4899, #831843)",
+    posterGradient: "linear-gradient(135deg, #f472b6, #be185d)",
   },
   {
     id: "event3",
@@ -144,14 +144,14 @@ export const eventData: EventData[] = [
     tagIcon: "ph-bold ph-megaphone",
     tagLabel: "Update",
     slideClass: "cs-3",
-    title: "UnionBank Partnership Success",
+    title: "Success Collaboration with UnionBank",
     shortDesc:
       "Inspire Group successfully collaborates with UnionBank for enhanced financial services.",
     fullDesc:
       "We're thrilled to announce the successful collaboration between Inspire Group and UnionBank! This strategic partnership enables our employees and clients to access a comprehensive suite of banking services, including digital payment solutions, investment products, and credit facilities. The collaboration strengthens our commitment to financial inclusion and innovation within the organization.",
     date: "April 1, 2026",
     location: "All Departments",
-    posterGradient: "linear-gradient(135deg, #2563eb, #1e40af)",
+    posterGradient: "linear-gradient(135deg, #f97316, #c2410c)",
   },
   {
     id: "event4",
@@ -159,12 +159,12 @@ export const eventData: EventData[] = [
     tagIcon: "ph-bold ph-party-popper",
     tagLabel: "Event",
     slideClass: "cs-4",
-    title: "Halloween Party",
+    title: "Halloween 2025",
     shortDesc:
       "Join us for a spooktacular celebration with all departments in festive costumes and activities.",
     fullDesc:
       "The Annual Halloween Party is back! All departments are invited to celebrate with creative costumes, themed decorations, and exciting activities. Expect costume contests, Halloween games, special treats, and a festive atmosphere throughout the office. Come dressed to impress and make this Halloween unforgettable with your colleagues!",
-    date: "October 31, 2026",
+    date: "October 31, 2025",
     location: "All Departments",
     posterGradient: "linear-gradient(135deg, #7c3aed, #3730a3)",
   },
@@ -174,12 +174,12 @@ export const eventData: EventData[] = [
     tagIcon: "ph-bold ph-confetti",
     tagLabel: "Event",
     slideClass: "cs-1",
-    title: "Year End Party 2026",
+    title: "Year End Party 2025",
     shortDesc:
       "Celebrate the year's achievements and welcome the new year with all departments.",
     fullDesc:
-      "The Year End Party 2026 is our biggest celebration of the year! All departments come together to celebrate our accomplishments, recognize outstanding contributions, and ring in the new year. Expect fine dining, entertainment, awards ceremony, and an atmosphere of camaraderie and appreciation. Join us for an unforgettable evening of celebration and gratitude.",
-    date: "December 20, 2026",
+      "The Year End Party 2025 is our biggest celebration of the year! All departments come together to celebrate our accomplishments, recognize outstanding contributions, and ring in the new year. Expect fine dining, entertainment, awards ceremony, and an atmosphere of camaraderie and appreciation. Join us for an unforgettable evening of celebration and gratitude.",
+    date: "December 20, 2025",
     location: "All Departments",
     posterGradient: "linear-gradient(135deg, #f59e0b, #92400e)",
   },
