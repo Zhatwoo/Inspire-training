@@ -1,4 +1,4 @@
-import type { AppData, EventData, DepartmentData } from "./types";
+import type { AppData, EventData, DepartmentData, PhilippineLawData } from "./types";
 
 export const appData: AppData[] = [
   {
@@ -110,63 +110,78 @@ export const appData: AppData[] = [
 export const eventData: EventData[] = [
   {
     id: "event1",
-    icon: "ph-duotone ph-calendar-star",
-    tagIcon: "ph-bold ph-star",
+    icon: "ph-duotone ph-heart",
+    tagIcon: "ph-bold ph-heart",
     tagLabel: "Event",
     slideClass: "cs-1",
-    title: "Annual Summit 2026",
+    title: "MS Valentines 2026",
     shortDesc:
-      "Join us for keynotes, workshops, and team-building across three full days.",
+      "Celebrate love and unity across all departments with special activities and surprises.",
     fullDesc:
-      "The Annual Inspire Summit brings together all departments for a three-day event featuring keynote speeches from leadership, interactive workshops on emerging technologies, cross-department collaboration sessions, and team-building activities designed to strengthen our organizational culture.",
-    date: "March 28, 2026",
-    location: "Grand Plaza",
-    posterGradient: "linear-gradient(135deg, var(--inspire-blue), #1e3a8a)",
+      "MS Valentines 2026 is a special celebration bringing together all departments to recognize love, friendship, and camaraderie in the workplace. Join us for exciting activities, team bonding, and heartfelt moments with colleagues. This all-department event promises fun, laughter, and strengthened relationships across Inspire Group.",
+    date: "February 14, 2026",
+    location: "All Departments",
+    posterGradient: "linear-gradient(135deg, #dc2626, #7f1d1d)",
   },
   {
     id: "event2",
-    icon: "ph-duotone ph-laptop",
-    tagIcon: "ph-bold ph-megaphone",
-    tagLabel: "Update",
+    icon: "ph-duotone ph-sparkle",
+    tagIcon: "ph-bold ph-star",
+    tagLabel: "Event",
     slideClass: "cs-2",
-    title: "Hybrid Work Policy",
+    title: "Girl Power Empowerment",
     shortDesc:
-      "We're officially rolling out a flexible hybrid model. Review the new guidelines.",
+      "A celebration dedicated to empowering and recognizing the women of Inspire Group.",
     fullDesc:
-      "Beginning April 2026, Inspire Group will officially adopt a hybrid work model. Employees may work remotely up to 3 days per week with manager approval. Updated guidelines covering equipment allowances, communication protocols, and performance expectations are now available in the HR portal.",
-    date: "March 22, 2026",
+      "The Girl Power Empowerment event celebrates the strength, achievements, and contributions of all women across Inspire Group. Featuring inspiring talks, networking sessions, and recognition ceremonies for outstanding female leaders and team members. This all-department celebration aims to foster inclusivity and highlight the vital role of women in our organization.",
+    date: "March 8, 2026",
     location: "All Departments",
-    posterGradient: "linear-gradient(135deg, var(--inspire-purple), #4c1d95)",
+    posterGradient: "linear-gradient(135deg, #ec4899, #831843)",
   },
   {
     id: "event3",
-    icon: "ph-duotone ph-trophy",
-    tagIcon: "ph-bold ph-award",
-    tagLabel: "Award",
+    icon: "ph-duotone ph-bank",
+    tagIcon: "ph-bold ph-megaphone",
+    tagLabel: "Update",
     slideClass: "cs-3",
-    title: "Employee Spotlight",
+    title: "UnionBank Partnership Success",
     shortDesc:
-      "Congratulations to the IT Department for the successful launch of Iwallet v3.",
+      "Inspire Group successfully collaborates with UnionBank for enhanced financial services.",
     fullDesc:
-      "The IT Department has been recognized for the successful launch of Iwallet v3, our next-generation digital payment platform. The team completed the project 2 weeks ahead of schedule while maintaining zero critical bugs in production. Congratulations to the entire team!",
-    date: "March 18, 2026",
-    location: "IT Department",
-    posterGradient: "linear-gradient(135deg, var(--inspire-orange), #7c2d12)",
+      "We're thrilled to announce the successful collaboration between Inspire Group and UnionBank! This strategic partnership enables our employees and clients to access a comprehensive suite of banking services, including digital payment solutions, investment products, and credit facilities. The collaboration strengthens our commitment to financial inclusion and innovation within the organization.",
+    date: "April 1, 2026",
+    location: "All Departments",
+    posterGradient: "linear-gradient(135deg, #2563eb, #1e40af)",
   },
   {
     id: "event4",
-    icon: "ph-duotone ph-warning-circle",
-    tagIcon: "ph-bold ph-hard-drives",
-    tagLabel: "Advisory",
+    icon: "ph-duotone ph-ghost",
+    tagIcon: "ph-bold ph-party-popper",
+    tagLabel: "Event",
     slideClass: "cs-4",
-    title: "System Maintenance",
+    title: "Halloween Party",
     shortDesc:
-      "Portal and dev servers will undergo scheduled maintenance this weekend.",
+      "Join us for a spooktacular celebration with all departments in festive costumes and activities.",
     fullDesc:
-      "Scheduled maintenance will affect the Employee Portal, development servers, and internal APIs this weekend (March 15\u201316). Expected downtime is 4 hours starting at 10:00 PM PHT Saturday. All critical services will have failover systems active. Please save your work and plan accordingly.",
-    date: "March 15, 2026",
-    location: "Infrastructure",
-    posterGradient: "linear-gradient(135deg, var(--inspire-green), #064e3b)",
+      "The Annual Halloween Party is back! All departments are invited to celebrate with creative costumes, themed decorations, and exciting activities. Expect costume contests, Halloween games, special treats, and a festive atmosphere throughout the office. Come dressed to impress and make this Halloween unforgettable with your colleagues!",
+    date: "October 31, 2026",
+    location: "All Departments",
+    posterGradient: "linear-gradient(135deg, #7c3aed, #3730a3)",
+  },
+  {
+    id: "event5",
+    icon: "ph-duotone ph-champagne",
+    tagIcon: "ph-bold ph-confetti",
+    tagLabel: "Event",
+    slideClass: "cs-1",
+    title: "Year End Party 2026",
+    shortDesc:
+      "Celebrate the year's achievements and welcome the new year with all departments.",
+    fullDesc:
+      "The Year End Party 2026 is our biggest celebration of the year! All departments come together to celebrate our accomplishments, recognize outstanding contributions, and ring in the new year. Expect fine dining, entertainment, awards ceremony, and an atmosphere of camaraderie and appreciation. Join us for an unforgettable evening of celebration and gratitude.",
+    date: "December 20, 2026",
+    location: "All Departments",
+    posterGradient: "linear-gradient(135deg, #f59e0b, #92400e)",
   },
 ];
 
@@ -444,5 +459,110 @@ export const departmentData: DepartmentData[] = [
       { name: "Rene Aguilar", role: "Plumber & HVAC Tech", initials: "RA" },
       { name: "Luz Hernandez", role: "Facilities Support", initials: "LH" },
     ],
+  },
+];
+
+export const philippineLawData: PhilippineLawData[] = [
+  {
+    id: "ra10173",
+    num: "10173",
+    name: "Data Privacy Act of 2012",
+    year: "2012",
+    icon: "ph-duotone ph-file-text",
+    color: "#2563eb",
+    details: {
+      title: "Republic Act No. 10173 - Data Privacy Act of 2012",
+      purpose: "Establishes the legal framework for personal information protection in the Philippines",
+      relevance: [
+        "Requires Organizations to implement reasonable organizational, physical, and technical measures to protect data",
+        "IT must ensure secure storage, processing, and transmission of personal data",
+        "Appointment of a Data Protection Officer (DPO) is mandatory",
+        "Data breach reporting must be done within 72 hours to the National Privacy Commission (NPC)",
+        "Implementing Rules: National Privacy Commission (NPC) Circulars and advisories",
+      ],
+    },
+  },
+  {
+    id: "ra8792",
+    num: "8792",
+    name: "E-Commerce Act of 2000",
+    year: "2000",
+    icon: "ph-duotone ph-globe-simple",
+    color: "#dc2626",
+    details: {
+      title: "Republic Act No. 8792 - E-Commerce Act of 2000",
+      purpose: "Recognizes the legality of electronic documents, signatures, and transactions",
+      relevance: [
+        "IT must ensure integrity, authenticity, and confidentiality of electronic documents",
+        "Systems used for e-commerce must have audit trails and access controls",
+        "Electronic signatures and records must be verifiable and protected from alteration",
+      ],
+    },
+  },
+  {
+    id: "ra10175",
+    num: "10175",
+    name: "Cybercrime Prevention Act of 2012",
+    year: "2012",
+    icon: "ph-duotone ph-shield-check",
+    color: "#16a34a",
+    details: {
+      title: "Republic Act No. 10175 - Cybercrime Prevention Act of 2012",
+      purpose: "Defines and penalizes offenses committed through computer systems",
+      relevance: [
+        "IT must implement security measures against unauthorized access, data interference, and system misuse",
+        "Organizations are required to preserve computer data for law enforcement investigations",
+        "IT departments should have incident response protocols and cooperate with authorities when needed",
+      ],
+    },
+  },
+  {
+    id: "ra10844",
+    num: "10844",
+    name: "DICT Act of 2015",
+    year: "2015",
+    icon: "ph-duotone ph-laptop",
+    color: "#9333ea",
+    details: {
+      title: "Republic Act No. 10844 - Department of Information and Communications Technology Act of 2015",
+      purpose: "Created the DICT to promote and regulate ICT Development in the country",
+      relevance: [
+        "IT operations may be subject to DICT-issued policies and standards (e.g., cloud use, cybersecurity, government interoperability)",
+        "Encourages adoption of national ICT standards and participation in information security capacity building",
+      ],
+    },
+  },
+  {
+    id: "ra8293",
+    num: "8293",
+    name: "Intellectual Property Code of the Philippines",
+    year: "1997",
+    icon: "ph-duotone ph-copyright",
+    color: "#ea580c",
+    details: {
+      title: "Republic Act No. 8293 - Intellectual Property Code of the Philippines",
+      purpose: "Protects copyrights, trademarks, and patents, including software and digital content",
+      relevance: [
+        "All software must be properly licensed",
+        "IT must prevent piracy or unauthorized software installations",
+        "Intellectual property policies should be part of IT management practices",
+      ],
+    },
+  },
+  {
+    id: "ra8484",
+    num: "8484",
+    name: "Access Devices Regulation Act of 1998",
+    year: "1998",
+    icon: "ph-duotone ph-credit-card",
+    color: "#0891b2",
+    details: {
+      title: "Republic Act No. 8484 - Access Devices Regulation Act of 1998",
+      purpose: "Prevents and penalizes fraud involving access devices (e.g., credit cards, online banking)",
+      relevance: [
+        "IT must ensure encryption and authentication controls for online payment systems",
+        "Systems should monitor and prevent identity theft and unauthorized access",
+      ],
+    },
   },
 ];
