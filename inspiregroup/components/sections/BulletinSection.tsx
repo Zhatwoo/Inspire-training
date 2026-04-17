@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useFadeIn } from "@/hooks/useFadeIn";
 import { philippineLawData } from "@/lib/data";
@@ -67,32 +68,7 @@ export default function BulletinSection() {
             </div>
           </div>
 
-          {/* Card 2: Dress Code */}
-          <div className="bulletin-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) flex flex-col">
-            <div className="p-8 pb-6 max-md:p-6 max-md:pb-4 flex items-center gap-4 border-b border-subtle bg-inset">
-              <div className="w-14 h-14 max-md:w-12 max-md:h-12 rounded-2xl flex items-center justify-center text-[1.6rem] max-md:text-[1.3rem] shrink-0 text-white shadow-(--shadow-md) bg-inspire-blue">
-                <i className="ph-duotone ph-t-shirt" />
-              </div>
-              <div>
-                <h3 className="font-serif text-[1.4rem] max-md:text-[1.1rem] font-bold text-content">
-                  Dress Code
-                </h3>
-                <p className="text-[0.9rem] max-md:text-[0.8rem] text-muted mt-1">
-                  Attire Standards
-                </p>
-              </div>
-            </div>
-            <div className="p-8 max-md:p-6 grow">
-              <div className="grid grid-cols-2 gap-4 max-md:grid-cols-1">
-                <AttireItem icon="ph-duotone ph-calendar-blank" title="Mon & Thu" subtitle="Employees" desc="White polo + Brown jacket (Company)" />
-                <AttireItem icon="ph-duotone ph-palette" title="Tuesday" subtitle="Employees" desc="Red polo (Company)" />
-                <AttireItem icon="ph-duotone ph-t-shirt" title="Wednesday" subtitle="Employees" desc="Gray polo or uniform (Company)" />
-                <AttireItem icon="ph-duotone ph-briefcase" title="All Days" subtitle="OJT Trainees" desc="Formal business attire" />
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Philippine Laws and Regulations */}
+          {/* Card 2: Philippine Laws and Regulations */}
           <div className="bulletin-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) flex flex-col">
             <div className="p-8 pb-6 flex items-center gap-4 border-b border-subtle bg-inset">
               <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-[1.6rem] shrink-0 text-white shadow-(--shadow-md) bg-inspire-purple">
@@ -151,44 +127,63 @@ export default function BulletinSection() {
           </div>
 
           {/* Card 5: New Work Schedule */}
-          <div className="bulletin-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) flex flex-col col-span-2 max-lg:col-span-1">
-            <div className="p-8 pb-6 flex items-center gap-4 border-b border-subtle bg-inset max-md:p-6">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-[1.6rem] shrink-0 text-white shadow-(--shadow-md) bg-inspire-orange max-md:w-12 max-md:h-12 max-md:text-[1.3rem]">
+          <div className="bulletin-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) flex flex-col">
+            <div className="p-8 pb-6 flex items-center gap-4 border-b border-subtle bg-inset max-md:p-6 max-md:pb-4">
+              <div className="w-14 h-14 max-md:w-12 max-md:h-12 rounded-2xl flex items-center justify-center text-[1.6rem] max-md:text-[1.3rem] shrink-0 text-white shadow-(--shadow-md) bg-inspire-orange">
                 <i className="ph-duotone ph-clock" />
               </div>
               <div>
-                <h3 className="font-serif text-[1.4rem] font-bold text-content max-md:text-[1.1rem]">
+                <h3 className="font-serif text-[1.4rem] max-md:text-[1.1rem] font-bold text-content">
                   New Work Schedule
                 </h3>
-                <p className="text-[0.9rem] text-muted mt-1 max-md:text-[0.8rem]">Effective April 16, 2026</p>
+                <p className="text-[0.9rem] max-md:text-[0.8rem] text-muted mt-1">Effective April 16, 2026</p>
               </div>
             </div>
-            <div className="p-8 grow max-md:p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-md:gap-4">
-                {/* Left Column */}
-                <div className="flex flex-col gap-5">
-                  <ScheduleItem label="Morning Assembly" time="7:45 AM (Sharp)" icon="ph-duotone ph-users-three" />
-                  <ScheduleItem label="Working Hours" time="8:00 AM - 5:00 PM" icon="ph-duotone ph-briefcase" />
-                </div>
-
-                {/* Right Column */}
-                <div className="flex flex-col gap-5">
-                  <div className="border-t md:border-t-0 md:border-l border-subtle pt-5 md:pt-0 md:pl-6">
-                    <p className="text-[0.85rem] font-bold text-content mb-4">Break Time Schedule:</p>
-                    <div className="flex flex-col gap-3">
-                      <BreakItem role="OJT Trainees" time="11:00 AM - 12:00 NN" />
-                      <BreakItem role="Back Office" time="12:00 NN - 1:00 PM" />
-                    </div>
-                  </div>
+            <div className="p-8 max-md:p-6 grow flex flex-col gap-4">
+              <ScheduleItem label="Morning Assembly" time="7:45 AM (Sharp)" icon="ph-duotone ph-users-three" />
+              <ScheduleItem label="Working Hours" time="8:00 AM - 5:00 PM" icon="ph-duotone ph-briefcase" />
+              <div className="border-t border-subtle pt-4 mt-1">
+                <p className="text-[0.82rem] font-bold text-content mb-3 uppercase tracking-wide">Break Time</p>
+                <div className="flex flex-col gap-2">
+                  <BreakItem role="OJT Trainees" time="11:00 AM – 12:00 NN" />
+                  <BreakItem role="Back Office" time="12:00 NN – 1:00 PM" />
                 </div>
               </div>
+              <div className="border-t border-subtle pt-4 mt-1 flex flex-col gap-3">
+                <RuleItem type="do" icon="ph-bold ph-check-circle" text="Applies to: Marketing, Corporate, Reception, Admin, JV, IT" />
+                <RuleItem type="do" icon="ph-bold ph-check-circle" text="Observe punctuality and discipline at all times" />
+                <RuleItem type="do" icon="ph-bold ph-check-circle" text="Managers may follow different schedule per operations" />
+              </div>
+            </div>
+          </div>
 
-              {/* Bottom Section */}
-              <div className="border-t border-subtle mt-6 pt-6 max-md:mt-4 max-md:pt-4">
-                <div className="flex flex-col gap-3">
-                  <RuleItem type="do" icon="ph-bold ph-check-circle" text="Applies to: Marketing, Corporate, Reception, Admin, Joint Venture (JV), IT" />
-                  <RuleItem type="do" icon="ph-bold ph-check-circle" text="Observe punctuality and discipline at all times" />
-                  <RuleItem type="do" icon="ph-bold ph-check-circle" text="Managers may follow different schedule per operations" />
+          {/* Card 6: Dress Code — landscape full-width */}
+          <div className="bulletin-card bg-card border border-subtle rounded-xl overflow-hidden shadow-(--shadow-sm) flex flex-col col-span-2 max-lg:col-span-1">
+            <div className="p-8 pb-6 max-md:p-6 max-md:pb-4 flex items-center gap-4 border-b border-subtle bg-inset">
+              <div className="w-14 h-14 max-md:w-12 max-md:h-12 rounded-2xl flex items-center justify-center text-[1.6rem] max-md:text-[1.3rem] shrink-0 text-white shadow-(--shadow-md) bg-inspire-blue">
+                <i className="ph-duotone ph-t-shirt" />
+              </div>
+              <div>
+                <h3 className="font-serif text-[1.4rem] max-md:text-[1.1rem] font-bold text-content">
+                  Dress Code
+                </h3>
+                <p className="text-[0.9rem] max-md:text-[0.8rem] text-muted mt-1">
+                  Attire Standards
+                </p>
+              </div>
+            </div>
+            <div className="grow flex flex-row max-md:flex-col">
+              {/* Carousel — left panel */}
+              <div className="w-[42%] max-lg:w-[45%] max-md:w-full shrink-0 border-r max-md:border-r-0 max-md:border-b border-subtle min-h-80 max-md:min-h-60 relative">
+                <DressCodeCarousel />
+              </div>
+              {/* Attire grid — right panel */}
+              <div className="flex-1 p-8 max-md:p-6 flex items-center">
+                <div className="grid grid-cols-2 gap-4 w-full max-sm:grid-cols-1">
+                  <AttireItem icon="ph-duotone ph-calendar-blank" title="Mon & Thu" subtitle="Employees" desc="White polo + Brown jacket (Company)" />
+                  <AttireItem icon="ph-duotone ph-palette" title="Tuesday" subtitle="Employees" desc="Red polo (Company)" />
+                  <AttireItem icon="ph-duotone ph-t-shirt" title="Wednesday" subtitle="Employees" desc="Gray polo or uniform (Company)" />
+                  <AttireItem icon="ph-duotone ph-briefcase" title="All Days" subtitle="OJT Trainees" desc="Formal business attire" />
                 </div>
               </div>
             </div>
@@ -347,6 +342,196 @@ const bulletinContent = {
     ] as BulletinRule[],
   },
 } as const;
+
+const dressCodeSlides = [
+  { src: "/images/dresscode/photo1.png", alt: "Monday & Thursday attire" },
+  { src: "/images/dresscode/photo2.png", alt: "Tuesday attire" },
+  { src: "/images/dresscode/photo3.png", alt: "Wednesday attire" },
+];
+
+function DressCodeCarousel() {
+  const [active, setActive] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const prev = useCallback(() =>
+    setActive((i) => (i - 1 + dressCodeSlides.length) % dressCodeSlides.length), []);
+  const next = useCallback(() =>
+    setActive((i) => (i + 1) % dressCodeSlides.length), []);
+
+  return (
+    <>
+      <div className="absolute inset-0 overflow-hidden bg-inset select-none group">
+        {/* Slides */}
+        <div
+          className="flex h-full transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${active * 100}%)` }}
+        >
+          {dressCodeSlides.map((s, i) => (
+            <div key={i} className="relative shrink-0 w-full h-full">
+              <Image
+                src={s.src}
+                alt={s.alt}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 42vw"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Zoom hint overlay — appears on hover */}
+        <button
+          onClick={() => setLightboxOpen(true)}
+          aria-label="View larger"
+          className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors duration-300 cursor-zoom-in"
+        >
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm text-white text-[0.78rem] font-semibold px-3 py-1.5 rounded-full">
+            <i className="ph-bold ph-arrows-out text-[0.9rem]" />
+            View larger
+          </span>
+        </button>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5 pointer-events-none">
+          {dressCodeSlides.map((_, i) => (
+            <span
+              key={i}
+              className={`block rounded-full transition-all duration-300 ${
+                i === active ? "w-4 h-1.5 bg-white" : "w-1.5 h-1.5 bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Prev / Next buttons */}
+        <button
+          onClick={prev}
+          aria-label="Previous"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white flex items-center justify-center transition-colors duration-200 z-10"
+        >
+          <i className="ph-bold ph-caret-left text-[0.85rem]" />
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white flex items-center justify-center transition-colors duration-200 z-10"
+        >
+          <i className="ph-bold ph-caret-right text-[0.85rem]" />
+        </button>
+      </div>
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <DressCodeLightbox
+          slides={dressCodeSlides}
+          initialIndex={active}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
+    </>
+  );
+}
+
+function DressCodeLightbox({
+  slides,
+  initialIndex,
+  onClose,
+}: {
+  slides: { src: string; alt: string }[];
+  initialIndex: number;
+  onClose: () => void;
+}) {
+  const [active, setActive] = useState(initialIndex);
+
+  const prev = useCallback(() =>
+    setActive((i) => (i - 1 + slides.length) % slides.length), [slides.length]);
+  const next = useCallback(() =>
+    setActive((i) => (i + 1) % slides.length), [slides.length]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose, prev, next]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      {/* Modal panel — stop propagation so clicking image doesn't close */}
+      <div
+        className="relative w-full max-w-2xl mx-4 rounded-2xl overflow-hidden shadow-2xl"
+        style={{ aspectRatio: "3/4", maxHeight: "88vh" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Slides */}
+        <div
+          className="flex h-full transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${active * 100}%)` }}
+        >
+          {slides.map((s, i) => (
+            <div key={i} className="relative shrink-0 w-full h-full bg-black">
+              <Image
+                src={s.src}
+                alt={s.alt}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 672px"
+                priority={i === active}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-4 inset-x-0 flex justify-center gap-2 pointer-events-none">
+          {slides.map((_, i) => (
+            <span
+              key={i}
+              className={`block rounded-full transition-all duration-300 ${
+                i === active ? "w-5 h-1.5 bg-white" : "w-1.5 h-1.5 bg-white/40"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Prev / Next */}
+        <button
+          onClick={prev}
+          aria-label="Previous"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white flex items-center justify-center transition-colors duration-200"
+        >
+          <i className="ph-bold ph-caret-left" />
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white flex items-center justify-center transition-colors duration-200"
+        >
+          <i className="ph-bold ph-caret-right" />
+        </button>
+      </div>
+
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white flex items-center justify-center transition-colors duration-200"
+      >
+        <i className="ph-bold ph-x" />
+      </button>
+    </div>
+  );
+}
 
 function RuleItem({
   type,

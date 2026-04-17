@@ -63,6 +63,7 @@ export interface DeptTeamMember {
   initials: string;
   head?: boolean;
   image?: string;
+  subGroup?: string;
 }
 
 export interface DeptRepo {
