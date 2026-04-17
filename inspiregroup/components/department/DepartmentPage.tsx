@@ -424,6 +424,175 @@ export default function DepartmentPage({
                   </div>
                 ))}
 
+                {/* Corporate Operations: assistant, marketing, media (same card patterns as Admin) */}
+                {dept.id === "corporate" && positions["Asst. of Career Track"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Assistant
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Asst. of Career Track"].map((member: typeof dept.team[0]) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dept.id === "corporate" && positions["Corporate Marketing"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Corporate Marketing
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Corporate Marketing"].map((member: typeof dept.team[0]) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dept.id === "corporate" && positions["Marketing Advertisement"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Marketing Advertisement
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Marketing Advertisement"].map((member: typeof dept.team[0]) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dept.id === "corporate" && positions["Corporate Media Associate"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Corporate Media
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Corporate Media Associate"].map((member: typeof dept.team[0]) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dept.id === "it" && positions["Head"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Head
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Head"].map((member: typeof dept.team[0]) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dept.id === "it" && positions["Software Developer"] && (
+                  <div className="mb-16">
+                    <p className="text-[0.85rem] font-extrabold uppercase tracking-wider mb-4" style={{ color: dept.color }}>
+                      Software Developers
+                    </p>
+                    <div className="flex flex-wrap gap-8 max-sm:gap-6">
+                      {positions["Software Developer"].map((member: typeof dept.team[0]) => (
+                        <div
+                          key={member.name}
+                          className="flex-1 min-w-48 flex flex-col items-center p-8 max-sm:p-6 rounded-2xl border transition duration-300 hover:shadow-md"
+                          style={{
+                            borderColor: `${dept.color}40`,
+                            background: `rgba(${dept.rgb}, 0.05)`,
+                          }}
+                        >
+                          <MemberAvatar member={member} deptColor={dept.color} size="medium" />
+                          <h4 className="font-serif font-bold text-content text-center max-sm:text-[0.95rem] mt-4 w-full">
+                            {member.name}
+                          </h4>
+                          <p className="text-[0.8rem] font-medium text-center max-sm:text-[0.75rem] mt-2" style={{ color: dept.color }}>
+                            {member.role}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Internal Audit */}
                 {positions["Internal Audit"] && (
                   <div className="mb-16">
@@ -572,20 +741,22 @@ export default function DepartmentPage({
                     <i className="ph-bold ph-arrow-square-out text-muted text-[1rem] shrink-0 mt-0.5" />
                   </div>
                   <p className="text-[0.9rem] text-muted leading-relaxed flex-1">{repo.desc}</p>
-                  <div className="flex gap-2 flex-wrap">
-                    {repo.envs.map((env) => (
-                      <span
-                        key={env}
-                        className={`font-mono text-[0.75rem] py-1 px-2.5 rounded-md font-semibold ${
-                          env === "prod"
-                            ? "bg-inspire-green/10 text-inspire-green border border-inspire-green/20"
-                            : "bg-inspire-yellow/10 text-inspire-yellow border border-inspire-yellow/20"
-                        }`}
-                      >
-                        {env}
-                      </span>
-                    ))}
-                  </div>
+                  {repo.envs && repo.envs.length > 0 ? (
+                    <div className="flex gap-2 flex-wrap">
+                      {repo.envs.map((env) => (
+                        <span
+                          key={env}
+                          className={`font-mono text-[0.75rem] py-1 px-2.5 rounded-md font-semibold ${
+                            env === "prod"
+                              ? "bg-inspire-green/10 text-inspire-green border border-inspire-green/20"
+                              : "bg-inspire-yellow/10 text-inspire-yellow border border-inspire-yellow/20"
+                          }`}
+                        >
+                          {env}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
                 </a>
               ))}
             </div>

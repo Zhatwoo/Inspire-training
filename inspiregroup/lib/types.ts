@@ -68,7 +68,8 @@ export interface DeptTeamMember {
 export interface DeptRepo {
   name: string;
   desc: string;
-  envs: string[];
+  /** Omit or leave empty to hide environment badges on the department repo card. */
+  envs?: string[];
   url?: string;
 }
 

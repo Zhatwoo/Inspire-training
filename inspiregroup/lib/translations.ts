@@ -219,9 +219,9 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["Support", "Relations", "Service", "Retention"],
     },
     corporate: {
-      name: "Corporate Department",
-      desc: "Corporate governance, strategy, stakeholder relations, and compliance.",
-      tags: ["Governance", "Strategy", "Compliance", "Stakeholders"],
+      name: "Corporate Operations Department",
+      desc: "Corporate operations coordinates the career track program, marketing, and media so strategy translates into consistent execution across the organization.",
+      tags: ["Career Track", "Marketing", "Media", "Operations"],
     },
     admin: {
       name: "Admin Department",
@@ -271,9 +271,9 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["サポート", "関係構築", "サービス", "定着"],
     },
     corporate: {
-      name: "コーポレート部門",
-      desc: "企業統治、戦略、ステークホルダー対応、コンプライアンスを担当します。",
-      tags: ["統治", "戦略", "コンプライアンス", "ステークホルダー"],
+      name: "コーポレートオペレーション部門",
+      desc: "キャリアトラック、マーケティング、メディアを統括し、戦略を組織全体で一貫して実行できるよう支援します。",
+      tags: ["キャリアトラック", "マーケティング", "メディア", "オペレーション"],
     },
     admin: {
       name: "管理部門",
@@ -323,9 +323,9 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["지원", "관계", "서비스", "유지"],
     },
     corporate: {
-      name: "기업 부서",
-      desc: "기업 거버넌스, 전략, 이해관계자 관계 및 컴플라이언스를 담당합니다.",
-      tags: ["거버넌스", "전략", "컴플라이언스", "이해관계자"],
+      name: "기업 운영 부서",
+      desc: "커리어 트랙, 마케팅, 미디어를 조율하여 전략이 조직 전반에서 일관되게 실행되도록 지원합니다.",
+      tags: ["커리어 트랙", "마케팅", "미디어", "운영"],
     },
     admin: {
       name: "관리 부서",
