@@ -284,6 +284,7 @@ export const departmentData: DepartmentData[] = [
       { title: "Software Inventory List", desc: "Licensed software and version tracking sheet.", size: "1.8 MB", type: "XLSX", icon: "ph-duotone ph-file-xls" },
     ],
     team: [
+<<<<<<< HEAD
       { name: "Jhun Darel Dominise Elli", role: "Head", initials: "JD", image: "/images/departments/it/head1.png" },
       { name: "Benedick Labaya Cervantes", role: "Head", initials: "BL", image: "/images/departments/it/head2.png" },
       { name: "Neo Andres dela Torre", role: "Head", initials: "NT", image: "/images/departments/it/head3.png" },
@@ -297,6 +298,21 @@ export const departmentData: DepartmentData[] = [
       { name: "loopwork", desc: "Project management and collaboration tooling.", url: "#" },
       { name: "deskhrx", desc: "HR and service desk workflows and integrations.", url: "#" },
       { name: "real estate", desc: "Property and real estate operations applications.", url: "#" },
+=======
+      { name: "Jhun Darel Dominise Elli", role: "Head", initials: "JE", head: true },
+      { name: "Benedick Labaya Cervantes", role: "Head", initials: "BC", head: true },
+      { name: "Neo Andres Dela Torre", role: "Head", initials: "NT", head: true },
+      { name: "Lester James Cordova", role: "Software Developer", initials: "LC" },
+      { name: "Aries Diane Legaspe", role: "Software Developer", initials: "AL" },
+      { name: "John Allain Accad", role: "Software Developer", initials: "JA" },
+    ],
+    repos: [
+      { name: "iwallet", desc: "Iwallet platform repository.", envs: ["prod"] },
+      { name: "cms", desc: "Content management system repository.", envs: ["prod"] },
+      { name: "loopwork", desc: "Workflow and task management repository.", envs: ["prod"] },
+      { name: "deskhrx", desc: "HR and desk operations repository.", envs: ["prod"] },
+      { name: "real estate", desc: "Real estate operations repository.", envs: ["prod"] },
+>>>>>>> b90c3c42196f7c77a0d71e42df37d301dc6c2a53
     ],
   },
   {
