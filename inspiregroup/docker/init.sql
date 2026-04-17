@@ -72,7 +72,7 @@ INSERT INTO departments (name, slug, description, icon, color) VALUES
 ('Admin', 'admin', 'The Admin Department is essential to the overall success of a company because it serves as the foundation of daily operations. It ensures that all departments have the structure, resources, and support they need to function effectively.', '🏢', '#10b981'),
 ('IT', 'it', 'Infrastructure, development, and tech support for the entire organization', '💻', '#2563eb'),
 ('Solution', 'solution', 'Business solutions, consulting, and technology-driven innovation services', '💡', '#0ea5e9'),
-('Iwallet', 'iwallet', 'Digital wallet operations, payment processing, and financial product support', '👛', '#f97316'),
+('iWallet', 'iwallet', 'Digital wallet operations, payment processing, and financial product support', '👛', '#f97316'),
 ('Real Estate', 'realestate', 'Property acquisition, leasing, portfolio management, and site development', '🏠', '#14b8a6'),
 ('Joint Business Adventure', 'jba', 'Strategic partnerships, joint ventures, and collaborative business initiatives', '🤝', '#d946ef'),
 ('Marketing', 'marketing', 'Brand management, digital marketing, campaigns, and communications', '📢', '#ef4444'),

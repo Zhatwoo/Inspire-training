@@ -16,7 +16,6 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("inspire-theme") as Theme | null;
@@ -24,7 +23,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setTheme(saved);
       document.documentElement.setAttribute("data-theme", saved);
     }
-    setMounted(true);
   }, []);
 
   const toggleTheme = () => {
@@ -33,10 +31,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("inspire-theme", next);
   };
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

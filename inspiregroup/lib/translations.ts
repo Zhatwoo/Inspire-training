@@ -239,7 +239,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["Property", "Leasing", "Acquisitions", "Development"],
     },
     iwallet: {
-      name: "Iwallet Department",
+      name: "iWallet Department",
       desc: "Digital wallet operations, payment processing, and financial product support.",
       tags: ["Payments", "Digital Wallet", "Finance", "Support"],
     },
@@ -301,7 +301,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["不動産", "賃貸", "取得", "開発"],
     },
     iwallet: {
-      name: "Iwallet部門",
+      name: "iWallet部門",
       desc: "デジタルウォレット運用、決済処理、金融サービス支援を担当します。",
       tags: ["決済", "デジタルウォレット", "金融", "サポート"],
     },
@@ -363,7 +363,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["부동산", "임대", "취득", "개발"],
     },
     iwallet: {
-      name: "Iwallet 부서",
+      name: "iWallet 부서",
       desc: "디지털 월렛 운영, 결제 처리, 금융 서비스 지원을 담당합니다.",
       tags: ["결제", "디지털 월렛", "금융", "지원"],
     },

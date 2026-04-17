@@ -3,7 +3,7 @@ import type { AppData, EventData, DepartmentData, PhilippineLawData } from "./ty
 export const appData: AppData[] = [
   {
     id: "iwallet",
-    name: "Iwallet",
+    name: "iWallet",
     icon: "ph-duotone ph-wallet",
     imageSrc: "/iwallet.png",
     cardClass: "ac-1",
@@ -13,7 +13,7 @@ export const appData: AppData[] = [
     modalLogoColor: "#ea580c",
     desc: "Digital wallet for secure transactions and financial management.",
     longDesc:
-      "Iwallet is Inspire Group's proprietary digital payment platform, enabling secure peer-to-peer transactions, expense management, and multi-currency wallet operations across all departments.",
+      "iWallet is Inspire Group's proprietary digital payment platform, enabling secure peer-to-peer transactions, expense management, and multi-currency wallet operations across all departments.",
     features: [
       { icon: "ph-duotone ph-credit-card", text: "Digital payments & transfers" },
       { icon: "ph-duotone ph-chart-pie", text: "Expense tracking & reports" },
@@ -23,7 +23,7 @@ export const appData: AppData[] = [
       { icon: "ph-duotone ph-shield-check", text: "Secure two-factor auth" },
     ],
     videos: [
-      { title: "Getting Started with Iwallet", desc: "Complete onboarding walkthrough", gradient: "linear-gradient(135deg, #f97316, #c2410c)" },
+      { title: "Getting Started with iWallet", desc: "Complete onboarding walkthrough", gradient: "linear-gradient(135deg, #f97316, #c2410c)" },
       { title: "Advanced Payment Features", desc: "Multi-currency and batch payments", gradient: "linear-gradient(135deg, #fb923c, #ea580c)" },
     ],
   },
@@ -326,19 +326,19 @@ export const departmentData: DepartmentData[] = [
   },
   {
     id: "iwallet",
-    name: "Iwallet Department",
+    name: "iWallet Department",
     icon: "ph-duotone ph-wallet",
     color: "#f97316",
     rgb: "249,115,22",
     desc: "Digital wallet operations, payment processing, and financial product support.",
     tags: ["Payments", "Digital Wallet", "Finance", "Support"],
     videos: [
-      { title: "Iwallet Product Overview", desc: "Full walkthrough of Iwallet features and use cases.", duration: "9:20" },
+      { title: "iWallet Product Overview", desc: "Full walkthrough of iWallet features and use cases.", duration: "9:20" },
       { title: "Transaction Dispute Handling", desc: "How to process and resolve payment disputes.", duration: "7:40" },
       { title: "Wallet Onboarding Flow", desc: "Step-by-step user onboarding for new wallet accounts.", duration: "6:55" },
     ],
     docs: [
-      { title: "Iwallet Operations Manual", desc: "Day-to-day procedures for wallet operations team.", size: "2.5 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
+      { title: "iWallet Operations Manual", desc: "Day-to-day procedures for wallet operations team.", size: "2.5 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
       { title: "Payment Reconciliation Guide", desc: "How to reconcile daily transaction records.", size: "1.3 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
       { title: "KYC Compliance Checklist", desc: "Know-Your-Customer verification requirements.", size: "0.9 MB", type: "PDF", icon: "ph-duotone ph-file-pdf" },
     ],
@@ -352,7 +352,7 @@ export const departmentData: DepartmentData[] = [
     ],
     repos: [
       { name: "iwallet-api", desc: "Core payment processing API with multi-currency and transfer support.", envs: ["prod", "staging"], url: "https://github.com/inspiregroup/iwallet-api" },
-      { name: "iwallet-web", desc: "Iwallet web dashboard for account management and transaction history.", envs: ["prod", "staging"], url: "https://github.com/inspiregroup/iwallet-web" },
+      { name: "iwallet-web", desc: "iWallet web dashboard for account management and transaction history.", envs: ["prod", "staging"], url: "https://github.com/inspiregroup/iwallet-web" },
       { name: "kyc-service", desc: "Know-Your-Customer verification microservice and compliance engine.", envs: ["prod"], url: "https://github.com/inspiregroup/kyc-service" },
       { name: "wallet-reconciler", desc: "Automated daily reconciliation and settlement reporting tool.", envs: ["prod"], url: "https://github.com/inspiregroup/wallet-reconciler" },
     ],

@@ -87,8 +87,8 @@ export interface DepartmentData {
   rgb: string;
   desc: string;
   tags: string[];
-  videos: DeptVideo[];
-  docs: DeptDoc[];
+  videos?: DeptVideo[];
+  docs?: DeptDoc[];
   team: DeptTeamMember[];
   repos?: DeptRepo[];
   envFiles?: DeptEnvFile[];

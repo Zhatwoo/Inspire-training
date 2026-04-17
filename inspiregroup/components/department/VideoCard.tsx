@@ -38,7 +38,7 @@ const videoTranslations: Record<"ja" | "ko", Record<string, Record<string, strin
       "Site Development Overview": "不動産開発プロジェクトの計画と実行。",
     },
     iwallet: {
-      "Iwallet Product Overview": "Iwalletの機能と利用ケースの完全ガイド。",
+      "iWallet Product Overview": "iWalletの機能と利用ケースの完全ガイド。",
       "Transaction Dispute Handling": "支払い紛争の処理と解決方法。",
       "Wallet Onboarding Flow": "新規ウォレット口座のユーザーオンボーディング手順。",
     },
@@ -90,7 +90,7 @@ const videoTranslations: Record<"ja" | "ko", Record<string, Record<string, strin
       "Site Development Overview": "부동산 개발 프로젝트의 기획 및 실행.",
     },
     iwallet: {
-      "Iwallet Product Overview": "Iwallet 기능과 활용 사례 전체 안내.",
+      "iWallet Product Overview": "iWallet 기능과 활용 사례 전체 안내.",
       "Transaction Dispute Handling": "결제 분쟁 처리 및 해결 방법.",
       "Wallet Onboarding Flow": "신규 월렛 계정 사용자 온보딩 단계별 가이드.",
     },
