@@ -255,7 +255,6 @@ const videoDescriptionTranslationsByDepartment: Record<
     },
   },
 };
-import VideoCard from "./VideoCard";
 import TeamSection from "./TeamSection";
 
 export default function DepartmentPage({
@@ -378,47 +377,16 @@ export default function DepartmentPage({
         )}
 
         {/* Team */}
-        <div className="mb-20">
-          <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-            <i
-              className="ph-duotone ph-users text-[2.2rem]"
-              style={{ color: dept.color }}
-            />
-            {t("deptTeamMembers")}
-          </h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-            {dept.team.map((member) => (
-              <div
-                key={member.name}
-                className={`org-card bg-card border border-subtle rounded-lg p-6 flex items-center gap-5 shadow-(--shadow-xs) ${
-                  member.head
-                    ? "md:col-span-2 border-2 mb-4"
-                    : ""
-                }`}
-                style={
-                  member.head
-                    ? { borderColor: dept.color, background: `rgba(${dept.rgb}, 0.02)` }
-                    : undefined
-                }
-              >
-                <div
-                  className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
-                  style={{ background: `rgba(${dept.rgb}, 0.1)`, color: dept.color }}
-                >
-                  <i className={doc.icon} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-mono text-[1rem] sm:text-[1.05rem] font-semibold mb-1 text-content">{doc.title}</h4>
-                  <p className="text-[0.88rem] sm:text-[0.9rem] text-muted leading-snug">{doc.desc}</p>
-                </div>
-                <span className="text-[0.8rem] text-muted font-mono shrink-0">
-                  {doc.size} &middot; {doc.type}
-                </span>
-                <span className="py-2.5 px-5 bg-inset text-content font-bold rounded-full text-[0.85rem] sm:text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 flex items-center gap-2">
-                  <i className="ph-bold ph-download-simple" /> {t("commonDownload")}
-                </span>
-              </a>
-            ))}
+        {dept.team && dept.team.length > 0 && (
+          <div className="mb-20">
+            <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+              <i
+                className="ph-duotone ph-users text-[2.2rem]"
+                style={{ color: dept.color }}
+              />
+              {t("deptTeamMembers")}
+            </h2>
+            <TeamSection team={dept.team} deptColor={dept.color} deptRgb={dept.rgb} />
           </div>
         )}
 
