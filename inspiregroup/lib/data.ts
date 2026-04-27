@@ -274,7 +274,7 @@ export const departmentData: DepartmentData[] = [
     icon: "ph-duotone ph-cpu",
     color: "#2563eb",
     rgb: "37,99,235",
-    desc: "Infrastructure, development, and tech support for the entire organization.",
+    desc: "The Information Technology (IT) Department is a critical component of the organization, responsible for utilizing technology to store, process, and share information. It is strategically structured into two main divisions: the Infrastructure Team and the Software Development Team. The Infrastructure Team, led by Benedick Cervantes, maintains the company's network services and hardware systems to ensure smooth daily operations. The Software Development Team, headed by Neo Dela Torre, focuses on building innovative applications across various dedicated pods like Inspire Wallet, Loopwork, and DeskHRX. Operating under the leadership of IT Director Jhun Darrel and CTO Brian Perez, the department utilizes modern programming languages, tools, and platforms to efficiently create and manage these systems. Through these combined efforts, the IT Department ensures that the organization's overall technological infrastructure runs reliably and continues to evolve.",
     tags: ["Infrastructure", "DevOps", "Security", "Support"],
     videos: [
       { title: "Network Setup Guide", desc: "Configure VPN, proxy settings, and internal DNS for secure access.", duration: "12:34" },
