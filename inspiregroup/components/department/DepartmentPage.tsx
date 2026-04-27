@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { DepartmentPageProps, DeptVideo } from "@/lib/types";
+import type { DepartmentPageProps } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { departmentTranslations } from "@/lib/translations";
 
@@ -255,6 +255,8 @@ const videoDescriptionTranslationsByDepartment: Record<
     },
   },
 };
+import VideoCard from "./VideoCard";
+import TeamSection from "./TeamSection";
 
 export default function DepartmentPage({
   department: dept,
@@ -262,27 +264,26 @@ export default function DepartmentPage({
 }: DepartmentPageProps) {
   const { t, language } = useLanguage();
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
+
   const localized =
-    departmentTranslations[language as keyof typeof departmentTranslations][
-      dept.id
-    ];
+    departmentTranslations[language as keyof typeof departmentTranslations][dept.id];
   const deptName = localized?.name ?? dept.name;
-  const deptDesc = localized?.desc ?? dept.desc;
+
   return (
     <div className="bg-main min-h-screen pb-24">
       {/* Hero Banner */}
       <div
-        className="dept-hero-bg pt-[180px] pb-[100px] relative overflow-hidden text-white max-md:pt-[120px] max-md:pb-[60px] max-md:rounded-none"
+        className="pt-[180px] pb-[100px] relative overflow-hidden text-white max-md:pt-[120px] max-md:pb-[60px]"
         style={{
           background: `linear-gradient(135deg, ${dept.color}, rgba(${dept.rgb},0.8))`,
           borderBottomLeftRadius: 40,
           borderBottomRightRadius: 40,
         }}
       >
-        <div className="relative z-[2] max-w-7xl mx-auto px-10 max-md:px-6">
+        <div className="relative z-[2] max-w-7xl mx-auto px-6 sm:px-10">
           <button
             onClick={onBack}
-            className="back-btn inline-flex items-center gap-2.5 text-white font-bold mb-10 bg-white/15 py-3 px-6 rounded-full backdrop-blur-[12px] border border-white/20"
+            className="inline-flex items-center gap-2.5 text-white font-bold mb-10 bg-white/15 py-3 px-6 rounded-full backdrop-blur-[12px] border border-white/20 transition-all duration-200 hover:bg-white/25"
           >
             <i className="ph-bold ph-arrow-left" /> {t("deptBack")}
           </button>
@@ -291,43 +292,43 @@ export default function DepartmentPage({
             <i
               className={`${dept.icon} text-[4rem] bg-white/20 p-6 rounded-[32px] backdrop-blur-[12px] shadow-[0_10px_30px_rgba(0,0,0,0.2)] max-md:text-[3rem] max-md:p-4`}
             />
-            <h1 className="font-serif text-[clamp(3rem,5vw,4.5rem)] leading-none m-0 [text-shadow:0_4px_24px_rgba(0,0,0,0.2)]">
+            <h1 className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] leading-none m-0 [text-shadow:0_4px_24px_rgba(0,0,0,0.2)]">
               {deptName}
             </h1>
           </div>
-          <p className="text-[1.15rem] opacity-90 max-w-[800px] mt-6 leading-relaxed">
-            {deptDesc}
+          <p className="text-[1.1rem] sm:text-[1.25rem] opacity-90 leading-relaxed max-md:mt-6 text-justify">
+            {dept.desc}
           </p>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-10 pt-20 max-md:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-16 sm:pt-20">
+
         {/* Training Videos */}
-        <div className="mb-20">
-          <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-            <i
-              className="ph-duotone ph-monitor-play text-[2.2rem]"
-              style={{ color: dept.color }}
-            />
-            {t("deptTrainingVideos")}
-          </h2>
-          <div className="grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-md:grid-cols-1">
-            {dept.videos.map((vid) => (
-              <VideoCard
-                key={vid.title}
-                vid={vid}
-                deptId={dept.id}
-                deptColor={dept.color}
-                deptRgb={dept.rgb}
-                onPlay={() => {
-                  if (vid.url) setActiveVideoUrl(vid.url);
-                  else alert("Video is not available on NAS server yet.");
-                }}
-              />
-            ))}
+        {dept.videos && dept.videos.length > 0 && (
+          <div className="mb-20">
+            <h2 className="font-serif text-[1.6rem] sm:text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+              <i className="ph-duotone ph-monitor-play text-[2.2rem]" style={{ color: dept.color }} />
+              {t("deptTrainingVideos")}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-7">
+              {dept.videos.map((vid) => (
+                <VideoCard
+                  key={vid.title}
+                  vid={vid}
+                  deptId={dept.id}
+                  deptColor={dept.color}
+                  deptRgb={dept.rgb}
+                  onPlay={() => {
+                    if (vid.url) setActiveVideoUrl(vid.url);
+                    else alert("Video is not available on NAS server yet.");
+                  }}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Documents */}
         {dept.docs && dept.docs.length > 0 && (
@@ -401,66 +402,41 @@ export default function DepartmentPage({
                 }
               >
                 <div
-                  className={`rounded-full flex items-center justify-center font-extrabold font-serif shrink-0 ${
-                    member.head
-                      ? "w-20 h-20 text-[1.8rem] text-white"
-                      : "w-16 h-16 text-[1.4rem] text-muted bg-inset border-2 border-subtle"
-                  }`}
-                  style={
-                    member.head
-                      ? {
-                          background: dept.color,
-                          borderColor: dept.color,
-                        }
-                      : undefined
-                  }
+                  className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
+                  style={{ background: `rgba(${dept.rgb}, 0.1)`, color: dept.color }}
                 >
-                  {member.initials}
+                  <i className={doc.icon} />
                 </div>
-                <div>
-                  <h4
-                    className={`font-serif font-bold flex items-center gap-2.5 text-content ${
-                      member.head ? "text-[1.5rem]" : "text-[1.2rem]"
-                    }`}
-                  >
-                    {member.name}
-                    {member.head && (
-                      <span
-                        className="text-[0.75rem] py-1 px-3 rounded-full font-extrabold uppercase tracking-wider font-sans text-white"
-                        style={{ background: dept.color }}
-                      >
-                        {t("deptHead")}
-                      </span>
-                    )}
-                  </h4>
-                  <p className="text-[0.95rem] text-muted font-medium">
-                    {member.role}
-                  </p>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-mono text-[1rem] sm:text-[1.05rem] font-semibold mb-1 text-content">{doc.title}</h4>
+                  <p className="text-[0.88rem] sm:text-[0.9rem] text-muted leading-snug">{doc.desc}</p>
                 </div>
-              </div>
+                <span className="text-[0.8rem] text-muted font-mono shrink-0">
+                  {doc.size} &middot; {doc.type}
+                </span>
+                <span className="py-2.5 px-5 bg-inset text-content font-bold rounded-full text-[0.85rem] sm:text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 flex items-center gap-2">
+                  <i className="ph-bold ph-download-simple" /> {t("commonDownload")}
+                </span>
+              </a>
             ))}
           </div>
-        </div>
+        )}
 
         {/* Repositories */}
         {dept.repos && dept.repos.length > 0 && (
           <div className="mb-20">
-            <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-              <i
-                className="ph-duotone ph-git-branch text-[2.2rem]"
-                style={{ color: dept.color }}
-              />
+            <h2 className="font-serif text-[1.6rem] sm:text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+              <i className="ph-duotone ph-git-branch text-[2.2rem]" style={{ color: dept.color }} />
               {t("deptRepositories")}
             </h2>
-            <div className="grid grid-cols-2 gap-5 max-lg:grid-cols-1">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {dept.repos.map((repo) => (
                 <a
                   key={repo.name}
                   href={repo.url ?? "#"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="repo-card bg-card border border-subtle rounded-lg p-6 shadow-(--shadow-sm) flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-(--shadow-md) hover:border-[var(--dept-color-border)]"
-                  style={{ "--dept-color": dept.color } as React.CSSProperties}
+                  className="bg-card border border-subtle rounded-lg p-6 shadow-(--shadow-sm) flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-(--shadow-md)"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <h4 className="font-mono text-[1.05rem] font-semibold flex items-center gap-2.5 text-content">
@@ -490,14 +466,11 @@ export default function DepartmentPage({
           </div>
         )}
 
-        {/* Env Files */}
+        {/* Environment Files */}
         {dept.envFiles && dept.envFiles.length > 0 && (
           <div className="mb-20">
-            <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-              <i
-                className="ph-duotone ph-file-lock text-[2.2rem]"
-                style={{ color: dept.color }}
-              />
+            <h2 className="font-serif text-[1.6rem] sm:text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+              <i className="ph-duotone ph-file-lock text-[2.2rem]" style={{ color: dept.color }} />
               {t("deptEnvironmentFiles")}
             </h2>
             {dept.envFiles.map((file) => (
@@ -505,8 +478,7 @@ export default function DepartmentPage({
                 key={file.name}
                 href="#"
                 download
-                className="doc-row flex items-center gap-5 py-5 px-8 bg-card border border-subtle rounded-lg mb-4 shadow-(--shadow-xs) max-md:flex-wrap transition-all duration-300 hover:-translate-y-0.5 hover:shadow-(--shadow-sm)"
-                style={{ "--dept-color": dept.color, "--dept-rgb": dept.rgb } as React.CSSProperties}
+                className="flex items-center gap-5 py-5 px-6 sm:px-8 bg-card border border-subtle rounded-lg mb-4 shadow-(--shadow-xs) max-md:flex-wrap transition-all duration-300 hover:-translate-y-0.5 hover:shadow-(--shadow-sm)"
               >
                 <div
                   className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
@@ -519,7 +491,7 @@ export default function DepartmentPage({
                   <p className="text-[0.9rem] text-muted leading-snug">{file.desc}</p>
                 </div>
                 <span className="text-[0.8rem] text-muted font-mono shrink-0">{file.size} &middot; TXT</span>
-                <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300 flex items-center gap-2">
+                <span className="py-2.5 px-5 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 flex items-center gap-2">
                   <i className="ph-bold ph-download-simple" /> {t("commonDownload")}
                 </span>
               </a>
@@ -528,7 +500,7 @@ export default function DepartmentPage({
         )}
       </div>
 
-      {/* Video Modal Overlay */}
+      {/* Video Modal */}
       {activeVideoUrl && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
@@ -538,12 +510,7 @@ export default function DepartmentPage({
             >
               <i className="ph-bold ph-x text-xl" />
             </button>
-            <video
-              controls
-              autoPlay
-              className="w-full h-full object-contain"
-              src={activeVideoUrl}
-            />
+            <video controls autoPlay className="w-full h-full object-contain" src={activeVideoUrl} />
           </div>
         </div>
       )}

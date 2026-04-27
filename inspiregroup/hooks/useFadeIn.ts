@@ -10,6 +10,17 @@ export function useFadeIn(threshold = 0.1) {
     const el = ref.current;
     if (!el) return;
 
+    if (typeof IntersectionObserver === "undefined") {
+      setIsVisible(true);
+      return;
+    }
+
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -21,7 +32,11 @@ export function useFadeIn(threshold = 0.1) {
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    const fallback = window.setTimeout(() => setIsVisible(true), 1500);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, [threshold]);
 
   return { ref, isVisible };

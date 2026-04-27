@@ -239,7 +239,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["Property", "Leasing", "Acquisitions", "Development"],
     },
     iwallet: {
-      name: "Iwallet Department",
+      name: "iWallet Department",
       desc: "Digital wallet operations, payment processing, and financial product support.",
       tags: ["Payments", "Digital Wallet", "Finance", "Support"],
     },
@@ -258,10 +258,20 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       desc: "Brand management, digital marketing, campaigns, and communications.",
       tags: ["Branding", "Campaigns", "Digital", "Communications"],
     },
-    utility: {
-      name: "Consultant",
-      desc: "Consulting services, strategic planning, and cross-functional advisory support.",
-      tags: ["Consulting", "Strategy", "Advisory", "Support"],
+    sales: {
+      name: "Sales Department",
+      desc: "Sales excellence, business growth, and client relationship management.",
+      tags: ["Sales", "Business Growth", "Client Relations", "Revenue"],
+    },
+    bizdev: {
+      name: "Business Development Department",
+      desc: "Identifying and developing new business opportunities and market expansion strategies.",
+      tags: ["Business Development", "Growth", "Partnerships", "Strategy"],
+    },
+    finance: {
+      name: "Finance Department",
+      desc: "Financial management, accounting, budgeting, and fiscal compliance.",
+      tags: ["Finance", "Accounting", "Budgeting", "Compliance"],
     },
   },
   ja: {
@@ -291,7 +301,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["不動産", "賃貸", "取得", "開発"],
     },
     iwallet: {
-      name: "Iwallet部門",
+      name: "iWallet部門",
       desc: "デジタルウォレット運用、決済処理、金融サービス支援を担当します。",
       tags: ["決済", "デジタルウォレット", "金融", "サポート"],
     },
@@ -310,10 +320,20 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       desc: "ブランド管理、デジタル施策、キャンペーン、広報を担当します。",
       tags: ["ブランド", "キャンペーン", "デジタル", "広報"],
     },
-    utility: {
-      name: "コンサルタント",
-      desc: "コンサルティング、戦略立案、部門横断のアドバイザリー支援を提供します。",
-      tags: ["コンサルティング", "戦略", "アドバイザリー", "サポート"],
+    sales: {
+      name: "営業部門",
+      desc: "セールスエクセレンス、ビジネス成長、顧客関係管理を担当します。",
+      tags: ["営業", "ビジネス成長", "顧客対応", "売上"],
+    },
+    bizdev: {
+      name: "事業開発部門",
+      desc: "新規ビジネス機会の特定・開発、市場拡大戦略を担当します。",
+      tags: ["事業開発", "成長", "提携", "戦略"],
+    },
+    finance: {
+      name: "財務部門",
+      desc: "財務管理、会計、予算策定、財務コンプライアンスを担当します。",
+      tags: ["財務", "会計", "予算", "コンプライアンス"],
     },
   },
   ko: {
@@ -343,7 +363,7 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       tags: ["부동산", "임대", "취득", "개발"],
     },
     iwallet: {
-      name: "Iwallet 부서",
+      name: "iWallet 부서",
       desc: "디지털 월렛 운영, 결제 처리, 금융 서비스 지원을 담당합니다.",
       tags: ["결제", "디지털 월렛", "금융", "지원"],
     },
@@ -362,10 +382,20 @@ export const departmentTranslations: Record<Language, DepartmentLocaleMap> = {
       desc: "브랜드 관리, 디지털 마케팅, 캠페인 및 커뮤니케이션을 담당합니다.",
       tags: ["브랜딩", "캠페인", "디지털", "커뮤니케이션"],
     },
-    utility: {
-      name: "컨설턴트",
-      desc: "컨설팅 서비스, 전략 기획, 부서 간 자문 지원을 제공합니다.",
-      tags: ["컨설팅", "전략", "자문", "지원"],
+    sales: {
+      name: "영업 부서",
+      desc: "세일즈 엑셀런스, 비즈니스 성장, 고객 관계 관리를 담당합니다.",
+      tags: ["영업", "비즈니스 성장", "고객 관계", "매출"],
+    },
+    bizdev: {
+      name: "사업 개발 부서",
+      desc: "새로운 비즈니스 기회 발굴 및 시장 확장 전략을 담당합니다.",
+      tags: ["사업개발", "성장", "파트너십", "전략"],
+    },
+    finance: {
+      name: "재무 부서",
+      desc: "재무 관리, 회계, 예산 수립, 재무 컴플라이언스를 담당합니다.",
+      tags: ["재무", "회계", "예산", "컴플라이언스"],
     },
   },
 };
