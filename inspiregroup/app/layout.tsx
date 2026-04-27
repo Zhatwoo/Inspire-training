@@ -36,6 +36,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
+      data-scroll-behavior="smooth"
       className={`${outfit.variable} ${fraunces.variable} ${jetbrains.variable}`}
     >
       <head>
