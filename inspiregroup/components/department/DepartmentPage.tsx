@@ -51,7 +51,7 @@ function VideoCard({
       </div>
       <div className="p-6">
         <h4 className="font-serif text-[1.2rem] font-bold mb-2 text-content">{vid.title}</h4>
-        <p className="text-[0.9rem] text-muted leading-snug">{translatedDesc}</p>
+        <p className="text-[1rem] text-muted leading-relaxed">{translatedDesc}</p>
         <span className="text-[0.8rem] text-muted mt-3 inline-block font-mono">{vid.duration}</span>
         <div className="flex gap-2 mt-4">
           {LANGS.map((l) => (
@@ -295,7 +295,7 @@ export default function DepartmentPage({
               {deptName}
             </h1>
           </div>
-          <p className="text-[1.25rem] opacity-90 max-w-[700px] ml-[125px] leading-relaxed max-md:ml-0 max-md:mt-6">
+          <p className="text-[1.15rem] opacity-90 max-w-[800px] mt-6 leading-relaxed">
             {deptDesc}
           </p>
         </div>
@@ -330,49 +330,51 @@ export default function DepartmentPage({
         </div>
 
         {/* Documents */}
-        <div className="mb-20">
-          <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
-            <i
-              className="ph-duotone ph-file-pdf text-[2.2rem]"
-              style={{ color: dept.color }}
-            />
-            {t("deptDocuments")}
-          </h2>
-          {dept.docs.map((doc) => (
-            <div
-              key={doc.title}
-              className="doc-row flex items-center gap-5 py-5 px-8 bg-card border border-subtle rounded-lg mb-4 cursor-pointer shadow-(--shadow-xs) max-md:flex-wrap"
-              style={
-                {
-                  "--dept-color": dept.color,
-                  "--dept-rgb": dept.rgb,
-                } as React.CSSProperties
-              }
-            >
+        {dept.docs && dept.docs.length > 0 && (
+          <div className="mb-20">
+            <h2 className="font-serif text-[1.8rem] font-bold mb-8 flex items-center gap-4 text-content">
+              <i
+                className="ph-duotone ph-file-pdf text-[2.2rem]"
+                style={{ color: dept.color }}
+              />
+              {t("deptDocuments")}
+            </h2>
+            {dept.docs.map((doc) => (
               <div
-                className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
-                style={{
-                  background: `rgba(${dept.rgb}, 0.1)`,
-                  color: dept.color,
-                }}
+                key={doc.title}
+                className="doc-row flex items-center gap-5 py-5 px-8 bg-card border border-subtle rounded-lg mb-4 cursor-pointer shadow-(--shadow-xs) max-md:flex-wrap"
+                style={
+                  {
+                    "--dept-color": dept.color,
+                    "--dept-rgb": dept.rgb,
+                  } as React.CSSProperties
+                }
               >
-                <i className={doc.icon} />
+                <div
+                  className="w-[54px] h-[54px] rounded-2xl flex items-center justify-center text-[1.5rem] shrink-0"
+                  style={{
+                    background: `rgba(${dept.rgb}, 0.1)`,
+                    color: dept.color,
+                  }}
+                >
+                  <i className={doc.icon} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-serif text-[1.15rem] font-bold mb-1 text-content">
+                    {doc.title}
+                  </h4>
+                  <p className="text-[0.9rem] text-muted">{doc.desc}</p>
+                </div>
+                <span className="text-[0.8rem] text-muted font-mono shrink-0">
+                  {doc.size} &middot; {doc.type}
+                </span>
+                <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300">
+                  {t("commonView")}
+                </span>
               </div>
-              <div className="flex-1">
-                <h4 className="font-serif text-[1.15rem] font-bold mb-1 text-content">
-                  {doc.title}
-                </h4>
-                <p className="text-[0.9rem] text-muted">{doc.desc}</p>
-              </div>
-              <span className="text-[0.8rem] text-muted font-mono shrink-0">
-                {doc.size} &middot; {doc.type}
-              </span>
-              <span className="py-2.5 px-6 bg-inset text-content font-bold rounded-full text-[0.9rem] border border-subtle whitespace-nowrap shrink-0 transition-all duration-300">
-                {t("commonView")}
-              </span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Team */}
         <div className="mb-20">
@@ -389,7 +391,7 @@ export default function DepartmentPage({
                 key={member.name}
                 className={`org-card bg-card border border-subtle rounded-lg p-6 flex items-center gap-5 shadow-(--shadow-xs) ${
                   member.head
-                    ? "col-span-full border-2 mb-4 scale-[1.01] max-lg:scale-100"
+                    ? "md:col-span-2 border-2 mb-4"
                     : ""
                 }`}
                 style={
